@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NIT Lab — Network Instructors</title>
+  <meta name="description" content="Access your NIT Lab environment — hands-on network lab platform by Network Instructors."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--amber:#FF8C00;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;position:relative;overflow:hidden;}
+    body::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(ellipse,rgba(0,212,255,0.05) 0%,transparent 70%);pointer-events:none;}
+    .lab-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3rem 3.5rem;max-width:480px;width:100%;text-align:center;box-shadow:0 40px 100px rgba(0,0,0,0.5);}
+    .logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:2rem;}
+    .logo-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:12px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:26px;height:26px;}
+    .logo-text{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.4rem;color:var(--white);letter-spacing:-0.01em;}
+    .logo-text span{color:var(--cyan);}
+    .status{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--green);background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.2);padding:0.3rem 0.8rem;border-radius:20px;margin-bottom:2rem;}
+    .status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.6);}50%{box-shadow:0 0 0 5px rgba(0,255,136,0);}}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.8rem;line-height:1.2;}
+    h1 span{color:var(--cyan);}
+    .welcome-text{font-size:0.95rem;color:var(--muted);line-height:1.7;margin-bottom:2.5rem;}
+    .enter-btn{display:block;width:100%;background:var(--cyan);color:var(--navy);padding:1rem;border-radius:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;text-decoration:none;transition:background 0.2s,transform 0.15s,box-shadow 0.2s;letter-spacing:0.01em;margin-bottom:1rem;}
+    .enter-btn:hover{background:#00BBDD;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,212,255,0.25);}
+    .divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+    .foot-note{font-size:0.8rem;color:var(--muted);line-height:1.6;}
+    .foot-note a{color:var(--cyan);text-decoration:none;}
+    .foot-note a:hover{text-decoration:underline;}
+    .back-link{margin-top:2rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .back-link:hover{color:var(--cyan);}
+    @media(max-width:480px){.lab-card{padding:2rem 1.5rem;}h1{font-size:1.5rem;}}
+  </style>
+</head>
+<body>
+
+  <div class="lab-card">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/>
+          <rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/>
+          <line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/>
+          <line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/>
+          <line x1="12" y1="5" x2="12" y2="19"/>
+        </svg>
+      </div>
+      <div class="logo-text">NIT<span>Lab</span></div>
+    </div>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      All systems operational
+    </div>
+
+    <h1>Welcome to <span>NIT Lab</span></h1>
+
+    <p class="welcome-text">
+      Your hands-on network lab environment is ready. Real Cisco IOS, FortiGate, and multi-vendor topologies — accessible directly from your browser.<br><br>
+      Use the credentials provided by your instructor to log in.
+    </p>
+
+    <a href="http://YOUR-PNETLAB-URL-HERE" class="enter-btn">
+      ⚡ Enter NIT Lab
+    </a>
+
+    <hr class="divider"/>
+
+    <p class="foot-note">
+      No account yet? <a href="mailto:labs@networkinstructors.com">Contact us</a> to get access.<br>
+      Need help? Email <a href="mailto:labs@networkinstructors.com">labs@networkinstructors.com</a>
+    </p>
+  </div>
+
+  <a href="https://networkinstructors.com" class="back-link">← Back to networkinstructors.com</a>
+
+</body>
+</html>
