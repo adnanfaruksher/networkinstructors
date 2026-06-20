@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Firewall Engineering — Fortinet · Cisco · Check Point · Palo Alto — Network Instructors</title>
+  <meta name="description" content="Multi-vendor firewall training: Fortinet FortiGate, Cisco ASA/FTD, Check Point, and Palo Alto. Policy design, VPN, UTM, HA, and zero-trust architecture."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--slate:#111827;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--cyan-dim:#0099BB;--amber:#FF8C00;--amber-dk:#CC7000;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;--red:#FF4466;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none;color:var(--white);}
+    .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:18px;height:18px;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--amber);color:#0A0F1E!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600!important;}
+    @media(max-width:768px){.nav-links{display:none;}}
+    .breadcrumb{padding:90px 5vw 0;max-width:1200px;margin:0 auto;}
+    .breadcrumb a{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .breadcrumb a:hover{color:var(--cyan);}
+    .breadcrumb span{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--red);margin:0 6px;}
+    .course-hero{padding:40px 5vw 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--red);background:rgba(255,68,102,0.08);border:1px solid rgba(255,68,102,0.2);padding:0.35rem 0.8rem;border-radius:4px;margin-bottom:1.2rem;}
+    .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,68,102,0.6);}50%{box-shadow:0 0 0 5px rgba(255,68,102,0);}}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+    h1 .accent{color:var(--red);}
+    .hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;max-width:580px;}
+    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+    .stat{display:flex;flex-direction:column;}
+    .stat-val{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:var(--white);}
+    .stat-label{font-size:0.78rem;color:var(--muted);}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+    .tag{font-family:'JetBrains Mono',monospace;font-size:0.67rem;padding:0.25rem 0.55rem;border-radius:4px;background:rgba(255,68,102,0.07);color:var(--red);border:1px solid rgba(255,68,102,0.15);}
+    .btn-primary{background:var(--red);color:#fff;padding:0.85rem 2rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.15s;}
+    .btn-primary:hover{background:#CC3355;transform:translateY(-1px);}
+    .btn-secondary{background:transparent;color:var(--white);padding:0.85rem 2rem;border-radius:8px;border:1px solid var(--border);font-weight:600;font-size:0.95rem;text-decoration:none;display:inline-block;transition:border-color 0.2s,color 0.2s;margin-left:1rem;}
+    .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);}
+    .enroll-card{background:var(--card);border:1px solid rgba(255,68,102,0.2);border-radius:14px;padding:2rem;position:sticky;top:88px;}
+    .enroll-price{font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;margin-bottom:0.3rem;}
+    .enroll-price span{font-size:1rem;color:var(--muted);font-weight:400;}
+    .enroll-desc{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+    .enroll-features{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;}
+    .enroll-features li{font-size:0.875rem;color:var(--muted);padding-left:1.4rem;position:relative;}
+    .enroll-features li::before{content:'✓';position:absolute;left:0;color:var(--green);}
+    .enroll-btn{display:block;text-align:center;background:var(--red);color:#fff;padding:0.9rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:background 0.2s;}
+    .enroll-btn:hover{background:#CC3355;}
+    .enroll-lab{display:block;text-align:center;margin-top:0.75rem;padding:0.75rem;border-radius:8px;border:1px solid rgba(0,212,255,0.3);color:var(--cyan);font-size:0.875rem;font-weight:600;text-decoration:none;transition:background 0.2s;}
+    .enroll-lab:hover{background:rgba(0,212,255,0.07);}
+    .content-wrap{max-width:1200px;margin:0 auto;padding:0 5vw 100px;}
+    .section-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--red);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.6rem;}
+    h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;line-height:1.2;letter-spacing:-0.02em;margin-bottom:1rem;}
+    h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.1rem;margin-bottom:0.8rem;}
+    .content-block{margin-bottom:60px;}
+
+    /* VENDOR CARDS */
+    .vendor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;margin-top:2rem;}
+    .vendor-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;transition:border-color 0.2s,transform 0.2s;}
+    .vendor-card:hover{transform:translateY(-2px);}
+    .vendor-card.forti:hover{border-color:rgba(255,68,102,0.3);}
+    .vendor-card.cisco:hover{border-color:rgba(0,212,255,0.3);}
+    .vendor-card.cp:hover{border-color:rgba(255,140,0,0.3);}
+    .vendor-card.palo:hover{border-color:rgba(0,255,136,0.3);}
+    .vendor-logo{font-size:2rem;margin-bottom:0.8rem;}
+    .vendor-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;margin-bottom:0.3rem;}
+    .vendor-cert{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--muted);margin-bottom:0.8rem;}
+    .vendor-desc{font-size:0.84rem;color:var(--muted);line-height:1.6;}
+
+    /* SYLLABUS TABS */
+    .vendor-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:1rem;}
+    .vendor-tab{font-family:'JetBrains Mono',monospace;font-size:0.75rem;padding:0.45rem 1rem;border-radius:6px 6px 0 0;border:1px solid transparent;color:var(--muted);cursor:pointer;background:transparent;transition:all 0.2s;text-decoration:none;}
+    .vendor-tab:hover{color:var(--white);}
+    .vendor-tab.active-forti{background:rgba(255,68,102,0.1);border-color:rgba(255,68,102,0.3);color:var(--red);}
+    .vendor-tab.active-cisco{background:rgba(0,212,255,0.1);border-color:rgba(0,212,255,0.3);color:var(--cyan);}
+    .vendor-tab.active-cp{background:rgba(255,140,0,0.1);border-color:rgba(255,140,0,0.3);color:var(--amber);}
+    .vendor-tab.active-palo{background:rgba(0,255,136,0.1);border-color:rgba(0,255,136,0.3);color:var(--green);}
+
+    .syllabus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem;margin-top:1rem;}
+    .module-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.2s;}
+    .module-header{display:flex;align-items:center;gap:10px;margin-bottom:0.8rem;flex-wrap:wrap;}
+    .module-num{font-family:'JetBrains Mono',monospace;font-size:0.68rem;padding:0.15rem 0.5rem;border-radius:4px;}
+    .mn-red{background:rgba(255,68,102,0.08);color:var(--red);border:1px solid rgba(255,68,102,0.2);}
+    .mn-cyan{background:rgba(0,212,255,0.08);color:var(--cyan);border:1px solid rgba(0,212,255,0.2);}
+    .mn-amber{background:rgba(255,140,0,0.08);color:var(--amber);border:1px solid rgba(255,140,0,0.2);}
+    .mn-green{background:rgba(0,255,136,0.08);color:var(--green);border:1px solid rgba(0,255,136,0.2);}
+    .module-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.92rem;}
+    .module-topics{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
+    .module-topics li{font-size:0.8rem;color:var(--muted);padding-left:1rem;position:relative;}
+    .module-topics li::before{content:'→';position:absolute;left:0;color:var(--border);font-size:0.7rem;}
+
+    .labs-list{display:flex;flex-direction:column;gap:0.8rem;margin-top:2rem;}
+    .lab-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;transition:border-color 0.2s;}
+    .lab-item:hover{border-color:rgba(255,68,102,0.2);}
+    .lab-item-icon{font-size:1.2rem;flex-shrink:0;}
+    .lab-item-content strong{font-size:0.9rem;color:var(--white);display:block;margin-bottom:0.2rem;}
+    .lab-item-content span{font-size:0.8rem;color:var(--muted);}
+    .lab-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;white-space:nowrap;flex-shrink:0;}
+    .lb-red{background:rgba(255,68,102,0.07);color:var(--red);border:1px solid rgba(255,68,102,0.15);}
+    .lb-cyan{background:rgba(0,212,255,0.07);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);}
+    .lb-amber{background:rgba(255,140,0,0.07);color:var(--amber);border:1px solid rgba(255,140,0,0.15);}
+    .lb-green{background:rgba(0,255,136,0.07);color:var(--green);border:1px solid rgba(0,255,136,0.15);}
+
+    /* PACKET FLOW */
+    .pkt-flow{display:flex;align-items:center;flex-wrap:wrap;gap:0;margin-top:2rem;}
+    .pkt-step{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.8rem 1rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--white);text-align:center;min-width:100px;}
+    .pkt-step span{display:block;font-size:0.6rem;color:var(--muted);margin-top:2px;}
+    .pkt-arrow{color:var(--red);font-size:1.2rem;margin:0 4px;}
+
+    footer{padding:40px 5vw;border-top:1px solid var(--border);text-align:center;}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .footer-nav a{font-size:0.85rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .footer-nav a:hover{color:var(--cyan);}
+    .footer-copy{font-size:0.8rem;color:var(--border);}
+    @media(max-width:900px){.course-hero{grid-template-columns:1fr;}.enroll-card{position:static;margin-top:2rem;}.pkt-flow{flex-direction:column;}.pkt-arrow{transform:rotate(90deg);}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+    Network<span style="color:var(--cyan)">.</span>Instructors
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#courses">Courses</a></li>
+    <li><a href="index.html#labs">NIT Labs</a></li>
+    <li><a href="index.html#rental">Lab Rental</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="booking.html" class="nav-cta">Rent a Lab</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span><a href="index.html#courses">Courses</a><span>/</span><span style="color:var(--white)">Firewall Engineering</span>
+</div>
+
+<div class="course-hero">
+  <div>
+    <div class="hero-badge"><span class="pulse-dot"></span>Multi-Vendor · 4 Platforms · Real Lab Topologies</div>
+    <h1><span class="accent">Firewall</span><br>Engineering</h1>
+    <p class="hero-desc">The most comprehensive multi-vendor firewall course available. Four platforms — Fortinet FortiGate, Cisco ASA/FTD, Check Point, and Palo Alto — taught to production depth. Policy architecture, VPN, threat inspection, HA, and zero-trust implementation in NIT Lab environments.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">4</span><span class="stat-label">Firewall platforms</span></div>
+      <div class="stat"><span class="stat-val">200h</span><span class="stat-label">Course hours</span></div>
+      <div class="stat"><span class="stat-val">40+</span><span class="stat-label">NIT Lab sessions</span></div>
+      <div class="stat"><span class="stat-val">4</span><span class="stat-label">Vendor certifications covered</span></div>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">FortiGate</span><span class="tag">Cisco ASA</span><span class="tag">FTD/FMC</span><span class="tag">Check Point</span><span class="tag">Palo Alto</span><span class="tag">IPSec VPN</span><span class="tag">SSL VPN</span><span class="tag">UTM</span><span class="tag">Zero Trust</span><span class="tag">NGFW</span>
+    </div>
+    <a href="booking.html" class="btn-primary">Enroll Now</a>
+    <a href="booking.html?plan=monthly" class="btn-secondary">Lab Only — €99/month</a>
+  </div>
+
+  <div class="enroll-card">
+    <div class="enroll-price">€549<span> / full course</span></div>
+    <p class="enroll-desc">All 4 vendor tracks. Full 200h course with NIT Lab access, recordings, and cert prep for Fortinet FCP and beyond.</p>
+    <ul class="enroll-features">
+      <li>Fortinet FortiGate deep-dive</li>
+      <li>Cisco ASA + FTD with FMC</li>
+      <li>Check Point R81 full track</li>
+      <li>Palo Alto PAN-OS fundamentals+</li>
+      <li>40+ NIT Lab guided sessions</li>
+      <li>IPSec &amp; SSL VPN labs on all platforms</li>
+      <li>HA configuration on each vendor</li>
+      <li>Fortinet FCP / NSE 4 exam prep</li>
+    </ul>
+    <a href="booking.html" class="enroll-btn">Enroll in Firewall Track</a>
+    <a href="booking.html?plan=monthly" class="enroll-lab">⚡ NIT Lab only — from €99/month</a>
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0;"/>
+    <p style="font-size:0.78rem;color:var(--muted);text-align:center;">Single-vendor track available — ask via contact form</p>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- VENDOR OVERVIEW -->
+  <div class="content-block">
+    <div class="section-label">// four platforms, one course</div>
+    <h2>Platforms Covered</h2>
+    <div class="vendor-grid">
+      <div class="vendor-card forti">
+        <div class="vendor-logo">🔴</div>
+        <div class="vendor-name">Fortinet FortiGate</div>
+        <div class="vendor-cert">FCP / NSE 4 / NSE 5</div>
+        <p class="vendor-desc">The most deployed NGFW globally. FortiOS policy architecture, UTM profiles, IPSec/SSL VPN, HA A/P and A/A, FortiManager, packet flow diagnostics.</p>
+      </div>
+      <div class="vendor-card cisco">
+        <div class="vendor-logo">🔵</div>
+        <div class="vendor-name">Cisco ASA &amp; FTD</div>
+        <div class="vendor-cert">CCNP Security · SCOR 350-701</div>
+        <p class="vendor-desc">Classic ASA CLI and ASDM, plus Firepower Threat Defense managed by FMC. Access control policy, IPS, AMP, prefilter, SSL decryption.</p>
+      </div>
+      <div class="vendor-card cp">
+        <div class="vendor-logo">🟠</div>
+        <div class="vendor-name">Check Point</div>
+        <div class="vendor-cert">CCSA R81 · CCSE R81</div>
+        <p class="vendor-desc">Check Point R81 architecture — Security Gateway, Management Server, SmartConsole. Access policy, NAT, site-to-site VPN, IPS, Application Control.</p>
+      </div>
+      <div class="vendor-card palo">
+        <div class="vendor-logo">🟢</div>
+        <div class="vendor-name">Palo Alto Networks</div>
+        <div class="vendor-cert">PCNSA · PCNSE</div>
+        <p class="vendor-desc">PAN-OS App-ID, User-ID, Content-ID. Security policy by application, GlobalProtect VPN, WildFire sandbox, Panorama management.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORTINET MODULE -->
+  <div class="content-block" id="forti">
+    <div class="section-label">// module 1 · fortinet fortigate</div>
+    <h2>FortiGate Deep-Dive</h2>
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-red">FG-01</span><span class="module-title">FortiOS Architecture &amp; Platform</span></div>
+        <ul class="module-topics">
+          <li>FortiGate hardware models and virtual appliances (VM)</li>
+          <li>FortiOS architecture — NP7, CP9, management plane</li>
+          <li>Packet flow — ingress, kernel space, session table, egress</li>
+          <li>GUI, CLI, FortiManager API administration modes</li>
+          <li>Operating modes — NAT/Route vs Transparent</li>
+          <li>VDOMs — Virtual Domains, inter-VDOM routing</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-red">FG-02</span><span class="module-title">Security Policy &amp; Objects</span></div>
+        <ul class="module-topics">
+          <li>Firewall policy architecture — source/destination/service/action</li>
+          <li>Address objects, address groups, wildcards, geography</li>
+          <li>Service objects and service groups</li>
+          <li>Explicit deny, implicit deny, logging best practices</li>
+          <li>Policy routing vs interface routing precedence</li>
+          <li>Local-in policy and management access control</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-red">FG-03</span><span class="module-title">UTM &amp; Security Profiles</span></div>
+        <ul class="module-topics">
+          <li>Antivirus — flow vs proxy mode, FortiSandbox integration</li>
+          <li>Web filter — categories, overrides, URL filter, safe search</li>
+          <li>Application control — App-ID, application overrides</li>
+          <li>IPS — signatures, custom signatures, rate-based detection</li>
+          <li>DNS filter — botnet C2, DNS over HTTPS inspection</li>
+          <li>Email filter — SMTP inspection, FortiMail integration</li>
+          <li>SSL/SSH deep packet inspection — certificate substitution</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-red">FG-04</span><span class="module-title">NAT Models</span></div>
+        <ul class="module-topics">
+          <li>Central NAT vs Policy NAT — architecture and selection</li>
+          <li>Source NAT — interface NAT, IP pool types (overload, range, fixed-port)</li>
+          <li>Destination NAT — VIPs, server load balancing</li>
+          <li>NAT46 / NAT64 — IPv4-to-IPv6 translation</li>
+          <li>Hairpin NAT — internal server access via public IP</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-red">FG-05</span><span class="module-title">VPN — IPSec &amp; SSL</span></div>
+        <ul class="module-topics">
+          <li>IPSec IKEv1 / IKEv2 — phase 1 and phase 2 parameters</li>
+          <li>Site-to-site VPN — route-based vs policy-based</li>
+          <li>Dial-up VPN — dynamic peers, XAUTH, certificate auth</li>
+          <li>SSL VPN — web mode and tunnel mode</li>
+          <li>FortiClient integration — EMS, endpoint compliance</li>
+          <li>ADVPN — Autodiscovery VPN for spoke-to-spoke shortcuts</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-red">FG-06</span><span class="module-title">High Availability &amp; Diagnostics</span></div>
+        <ul class="module-topics">
+          <li>HA modes — Active/Passive and Active/Active</li>
+          <li>Session synchronization and session pickup</li>
+          <li>HA failover testing and heartbeat configuration</li>
+          <li>diagnose debug flow — 7-stage packet trace</li>
+          <li>diagnose sniffer packet — CLI packet capture</li>
+          <li>FortiView, session table analysis, log forensics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CISCO ASA / FTD MODULE -->
+  <div class="content-block" id="cisco">
+    <div class="section-label">// module 2 · cisco asa &amp; ftd</div>
+    <h2>Cisco ASA &amp; Firepower FTD</h2>
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-cyan">ASA-01</span><span class="module-title">ASA Architecture &amp; Policy</span></div>
+        <ul class="module-topics">
+          <li>ASA security levels — inside, outside, DMZ model</li>
+          <li>Access control lists (ACL) — interface-based, global ACL</li>
+          <li>Object and object-group configuration</li>
+          <li>MPF — Modular Policy Framework, class-map, policy-map</li>
+          <li>Connection limits and embryonic limits</li>
+          <li>AAA with RADIUS/TACACS+ for management and cut-through proxy</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-cyan">ASA-02</span><span class="module-title">ASA NAT &amp; VPN</span></div>
+        <ul class="module-topics">
+          <li>ASA NAT — Auto NAT vs Manual NAT, NAT order of operations</li>
+          <li>Static NAT, dynamic NAT, PAT, NAT exemption (identity NAT)</li>
+          <li>Site-to-site IKEv1/v2 crypto maps and VTI</li>
+          <li>AnyConnect SSL VPN — clientless and full tunnel</li>
+          <li>ASA HA — Active/Standby failover, state synchronization</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-cyan">FTD-01</span><span class="module-title">FTD &amp; FMC Architecture</span></div>
+        <ul class="module-topics">
+          <li>Firepower architecture — Snort engine, Lina (ASA) engine</li>
+          <li>FMC deployment — hardware vs virtual, licensing</li>
+          <li>FTD packet processing order — prefilter vs access control</li>
+          <li>Device registration and health monitoring in FMC</li>
+          <li>Deployment workflow — policy push, change reconciliation</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-cyan">FTD-02</span><span class="module-title">FTD Policies &amp; Inspection</span></div>
+        <ul class="module-topics">
+          <li>Access control policy — zones, networks, applications, users</li>
+          <li>Prefilter policy — fastpath, block, analyze</li>
+          <li>IPS policy — Snort rules, variable sets, rule tuning</li>
+          <li>File policy — malware detection, AMP cloud, retrospective</li>
+          <li>SSL policy — decrypt and re-sign, known-key, do-not-decrypt</li>
+          <li>Identity policy — passive identity, AD integration, ISE</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECK POINT MODULE -->
+  <div class="content-block" id="cp">
+    <div class="section-label">// module 3 · check point r81</div>
+    <h2>Check Point R81</h2>
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-amber">CP-01</span><span class="module-title">Architecture &amp; SmartConsole</span></div>
+        <ul class="module-topics">
+          <li>Three-tier architecture — Security Gateway, SMS, SmartConsole</li>
+          <li>SIC — Secure Internal Communication, certificate trust</li>
+          <li>Policy packages — Security, NAT, QoS, Desktop</li>
+          <li>Unified policy and ordered layers (R81 model)</li>
+          <li>Multi-Domain Management (MDS) overview</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-amber">CP-02</span><span class="module-title">Policy, NAT &amp; VPN</span></div>
+        <ul class="module-topics">
+          <li>Access policy — rule base, objects, cleanup rule</li>
+          <li>Identity Awareness — AD Query, browser-based auth</li>
+          <li>NAT — hide NAT, static NAT, automatic vs manual</li>
+          <li>Site-to-site VPN — IKEv1/v2, VPN communities (meshed/star)</li>
+          <li>Remote access — Mobile Access blade, SSL VPN</li>
+          <li>ClusterXL — High Availability and Load Sharing modes</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-amber">CP-03</span><span class="module-title">Threat Prevention Blades</span></div>
+        <ul class="module-topics">
+          <li>IPS blade — profiles, protections, confidence index</li>
+          <li>Application Control &amp; URL Filtering</li>
+          <li>Anti-Bot and Anti-Virus — ThreatCloud integration</li>
+          <li>Threat Emulation (SandBlast) — file detonation</li>
+          <li>HTTPS Inspection — outbound and inbound</li>
+          <li>SmartLog and SmartView Tracker for forensics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PALO ALTO MODULE -->
+  <div class="content-block" id="palo">
+    <div class="section-label">// module 4 · palo alto pan-os</div>
+    <h2>Palo Alto Networks PAN-OS</h2>
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-green">PA-01</span><span class="module-title">Architecture &amp; Zones</span></div>
+        <ul class="module-topics">
+          <li>PAN-OS architecture — management, control, data planes</li>
+          <li>Zone-based policy model — trust, untrust, DMZ, custom</li>
+          <li>Interface types — tap, virtual wire, layer 2, layer 3</li>
+          <li>Virtual routers and static routing</li>
+          <li>Panorama — centralized management, device groups, templates</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-green">PA-02</span><span class="module-title">App-ID, User-ID, Content-ID</span></div>
+        <ul class="module-topics">
+          <li>App-ID — application signatures, App-Default, unknown-tcp</li>
+          <li>Security policy by application — not port</li>
+          <li>User-ID — Windows domain, XML API, syslog parsing</li>
+          <li>Content-ID — URL categories, file blocking, data filtering</li>
+          <li>Vulnerability protection and anti-spyware profiles</li>
+          <li>WildFire — cloud sandbox, verdicts, signature updates</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num mn-green">PA-03</span><span class="module-title">NAT, VPN &amp; HA</span></div>
+        <ul class="module-topics">
+          <li>NAT policy — source NAT, destination NAT, U-turn NAT</li>
+          <li>IPSec site-to-site — IKEv2, tunnel interfaces</li>
+          <li>GlobalProtect — internal/external gateways, HIP profiles</li>
+          <li>SSL decryption — forward proxy, inbound inspection</li>
+          <li>HA — Active/Passive and Active/Active, session sync</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORTIGATE PACKET FLOW -->
+  <div class="content-block">
+    <div class="section-label">// taught in depth</div>
+    <h2>FortiGate Packet Flow — All 7 Stages</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">You learn to diagnose every stage with <code style="font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--cyan);">diagnose debug flow</code> in NIT Lab.</p>
+    <div class="pkt-flow">
+      <div class="pkt-step">Ingress<span>Interface / VLAN</span></div>
+      <div class="pkt-arrow">→</div>
+      <div class="pkt-step">Routing<span>Route lookup</span></div>
+      <div class="pkt-arrow">→</div>
+      <div class="pkt-step">Policy<span>FW policy match</span></div>
+      <div class="pkt-arrow">→</div>
+      <div class="pkt-step">UTM<span>Security profiles</span></div>
+      <div class="pkt-arrow">→</div>
+      <div class="pkt-step">NAT<span>Source / Dest</span></div>
+      <div class="pkt-arrow">→</div>
+      <div class="pkt-step">Session<span>State table</span></div>
+      <div class="pkt-arrow">→</div>
+      <div class="pkt-step">Egress<span>Interface out</span></div>
+    </div>
+  </div>
+
+  <!-- LAB SESSIONS -->
+  <div class="content-block">
+    <div class="section-label">// nit lab sessions</div>
+    <h2>Multi-Vendor Lab Schedule</h2>
+    <div class="labs-list">
+      <div class="lab-item"><span class="lab-item-icon">🔥</span><div class="lab-item-content"><strong>FortiGate Policy + UTM Lab</strong><span>Build full policy set with AV, web filter, IPS, and AppCtrl profiles — verify with live traffic</span></div><span class="lab-badge lb-red">FortiGate</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🔐</span><div class="lab-item-content"><strong>FortiGate IPSec VPN Site-to-Site</strong><span>Route-based IKEv2 tunnel between two FortiGate units — traffic verification and debug flow</span></div><span class="lab-badge lb-red">FortiGate</span></div>
+      <div class="lab-item"><span class="lab-item-icon">⚡</span><div class="lab-item-content"><strong>FortiGate HA Active/Passive</strong><span>Configure cluster, test failover, verify session pickup — all via diagnose ha commands</span></div><span class="lab-badge lb-red">FortiGate</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🔵</span><div class="lab-item-content"><strong>Cisco ASA ACL + NAT Lab</strong><span>Inside-outside-DMZ topology — Manual NAT, static server NAT, AnyConnect VPN</span></div><span class="lab-badge lb-cyan">Cisco ASA</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🎯</span><div class="lab-item-content"><strong>FTD with FMC — Access Control + IPS</strong><span>Deploy FTD managed by FMC, configure ACP, enable Snort IPS policy, SSL decrypt</span></div><span class="lab-badge lb-cyan">FTD/FMC</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🟠</span><div class="lab-item-content"><strong>Check Point Policy &amp; VPN Lab</strong><span>SmartConsole policy base, IPS blade, site-to-site VPN community, ClusterXL HA</span></div><span class="lab-badge lb-amber">Check Point</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🟢</span><div class="lab-item-content"><strong>Palo Alto App-ID &amp; GlobalProtect</strong><span>Zone-based policy, App-ID rules, User-ID with AD, GlobalProtect VPN with HIP check</span></div><span class="lab-badge lb-green">Palo Alto</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="ccna.html">CCNA</a>
+    <a href="ccnp.html">CCNP</a>
+    <a href="booking.html">Lab Rental</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p class="footer-copy">© 2025 Network Instructors · networkinstructors.com</p>
+</footer>
+
+</body>
+</html>

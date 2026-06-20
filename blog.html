@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — Network Instructors</title>
+  <meta name="description" content="Networking and firewall articles from Network Instructors — OSPF, BGP, FortiGate, Cisco, Check Point, Palo Alto, and more."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--slate:#111827;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--cyan-dim:#0099BB;--amber:#FF8C00;--amber-dk:#CC7000;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;--red:#FF4466;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none;color:var(--white);}
+    .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:18px;height:18px;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--amber);color:#0A0F1E!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600!important;}
+    @media(max-width:768px){.nav-links{display:none;}}
+
+    .page-wrap{max-width:1200px;margin:0 auto;padding:120px 5vw 100px;}
+    .page-eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.8rem;}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.8rem;}
+    .page-sub{color:var(--muted);font-size:1rem;margin-bottom:2.5rem;}
+
+    /* FILTER TAGS */
+    .filter-bar{display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:3rem;}
+    .filter-btn{font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.35rem 0.85rem;border-radius:20px;border:1px solid var(--border);color:var(--muted);cursor:pointer;background:transparent;transition:all 0.2s;}
+    .filter-btn:hover,.filter-btn.active{background:rgba(0,212,255,0.08);border-color:rgba(0,212,255,0.3);color:var(--cyan);}
+    .filter-btn[data-cat="firewall"].active{background:rgba(255,68,102,0.08);border-color:rgba(255,68,102,0.3);color:var(--red);}
+    .filter-btn[data-cat="bgp"].active,.filter-btn[data-cat="ccnp"].active{background:rgba(255,140,0,0.08);border-color:rgba(255,140,0,0.3);color:var(--amber);}
+    .filter-btn[data-cat="automation"].active{background:rgba(0,255,136,0.08);border-color:rgba(0,255,136,0.3);color:var(--green);}
+
+    /* FEATURED POST */
+    .featured-post{background:var(--card);border:1px solid rgba(0,212,255,0.2);border-radius:14px;padding:2.5rem;margin-bottom:2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s;cursor:pointer;}
+    .featured-post:hover{border-color:var(--cyan);transform:translateY(-2px);}
+    .featured-label{font-family:'JetBrains Mono',monospace;font-size:0.68rem;color:var(--cyan);background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);padding:0.2rem 0.55rem;border-radius:4px;display:inline-block;margin-bottom:0.8rem;}
+    .featured-post h2{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.5rem;line-height:1.2;letter-spacing:-0.01em;margin-bottom:0.7rem;}
+    .featured-post p{color:var(--muted);font-size:0.9rem;line-height:1.65;max-width:620px;}
+    .post-meta{display:flex;align-items:center;gap:1rem;margin-top:1rem;flex-wrap:wrap;}
+    .post-date{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);}
+    .post-tag{font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.18rem 0.5rem;border-radius:4px;}
+    .pt-ospf{background:rgba(0,212,255,0.07);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);}
+    .pt-bgp{background:rgba(255,140,0,0.07);color:var(--amber);border:1px solid rgba(255,140,0,0.15);}
+    .pt-fw{background:rgba(255,68,102,0.07);color:var(--red);border:1px solid rgba(255,68,102,0.15);}
+    .pt-auto{background:rgba(0,255,136,0.07);color:var(--green);border:1px solid rgba(0,255,136,0.15);}
+    .pt-ccna{background:rgba(0,212,255,0.07);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);}
+    .read-time{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);}
+    .featured-arrow{font-size:2rem;color:var(--cyan);opacity:0.4;}
+
+    /* ARTICLE GRID */
+    .articles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;}
+    .article-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;text-decoration:none;color:inherit;transition:border-color 0.25s,transform 0.2s;display:flex;flex-direction:column;cursor:pointer;}
+    .article-card:hover{border-color:rgba(0,212,255,0.25);transform:translateY(-2px);}
+    .article-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.05rem;line-height:1.3;margin:0.8rem 0 0.6rem;}
+    .article-card p{font-size:0.85rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:1.2rem;}
+
+    /* ARTICLE VIEW */
+    .article-view{display:none;}
+    .article-header{margin-bottom:3rem;}
+    .back-btn{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--cyan);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:2rem;cursor:pointer;background:transparent;border:none;padding:0;}
+    .back-btn:hover{text-decoration:underline;}
+    .article-header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin:1rem 0;}
+    .article-header .page-sub{max-width:680px;}
+    .article-body{max-width:720px;}
+    .article-body h2{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;margin:2.5rem 0 0.8rem;letter-spacing:-0.01em;}
+    .article-body h3{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin:1.8rem 0 0.6rem;color:var(--cyan);}
+    .article-body p{color:var(--muted);line-height:1.8;margin-bottom:1.2rem;font-size:0.95rem;}
+    .article-body strong{color:var(--white);}
+    .article-body ul,.article-body ol{color:var(--muted);margin:0 0 1.2rem 1.5rem;font-size:0.95rem;line-height:1.8;}
+    .article-body li{margin-bottom:0.4rem;}
+    .code-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.4rem;margin:1.2rem 0;overflow-x:auto;}
+    .code-block pre{font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.9;color:var(--white);}
+    .code-block .cmd{color:var(--cyan);}
+    .code-block .out{color:var(--muted);}
+    .code-block .ok{color:var(--green);}
+    .code-block .cmt{color:#3A5080;font-style:italic;}
+    .article-body .callout{background:rgba(0,212,255,0.05);border:1px solid rgba(0,212,255,0.2);border-radius:8px;padding:1rem 1.2rem;margin:1.2rem 0;font-size:0.88rem;color:var(--muted);}
+    .article-body .callout strong{color:var(--cyan);}
+
+    footer{padding:40px 5vw;border-top:1px solid var(--border);text-align:center;margin-top:60px;}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .footer-nav a{font-size:0.85rem;color:var(--muted);text-decoration:none;}
+    .footer-nav a:hover{color:var(--cyan);}
+    .footer-copy{font-size:0.8rem;color:var(--border);}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+    Network<span style="color:var(--cyan)">.</span>Instructors
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#courses">Courses</a></li>
+    <li><a href="index.html#labs">NIT Labs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="booking.html" class="nav-cta">Rent a Lab</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- BLOG LIST VIEW -->
+  <div id="blog-list">
+    <div class="page-eyebrow">// the lab notebook</div>
+    <h1>Blog</h1>
+    <p class="page-sub">Technical articles on routing, switching, firewall engineering, and network automation — from production experience, not just exam prep.</p>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-cat="all" onclick="filterPosts('all',this)">All</button>
+      <button class="filter-btn" data-cat="ospf" onclick="filterPosts('ospf',this)">OSPF</button>
+      <button class="filter-btn" data-cat="bgp" onclick="filterPosts('bgp',this)">BGP</button>
+      <button class="filter-btn" data-cat="firewall" onclick="filterPosts('firewall',this)">Firewall</button>
+      <button class="filter-btn" data-cat="ccna" onclick="filterPosts('ccna',this)">CCNA</button>
+      <button class="filter-btn" data-cat="ccnp" onclick="filterPosts('ccnp',this)">CCNP</button>
+      <button class="filter-btn" data-cat="automation" onclick="filterPosts('automation',this)">Automation</button>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="featured-post" onclick="showArticle('ospf-lsa-types')">
+      <div>
+        <span class="featured-label">⭐ Featured Article</span>
+        <h2>OSPF LSA Types 1–7 Explained — With Real LSDB Output</h2>
+        <p>Most CCNP candidates can name the LSA types. Far fewer can read a live LSDB and tell you exactly what each entry means. This article walks through all seven LSA types using actual <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;color:var(--cyan);">show ip ospf database</code> output from a 5-router NIT Lab topology.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-06-10</span>
+          <span class="post-tag pt-ospf">OSPF</span>
+          <span class="post-tag pt-ospf">CCNP</span>
+          <span class="read-time">12 min read</span>
+        </div>
+      </div>
+      <div class="featured-arrow">→</div>
+    </div>
+
+    <!-- ARTICLE GRID -->
+    <div class="articles-grid" id="articles-grid">
+      <div class="article-card" data-cats="firewall" onclick="showArticle('fortigate-packet-flow')">
+        <span class="post-tag pt-fw">FortiGate</span>
+        <h3>FortiGate Packet Flow — All 7 Stages With debug flow</h3>
+        <p>The <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;color:var(--cyan);">diagnose debug flow</code> command reveals exactly what happens at every stage of FortiGate packet processing. Here's how to read it.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-05-28</span>
+          <span class="read-time">9 min read</span>
+        </div>
+      </div>
+
+      <div class="article-card" data-cats="bgp ccnp" onclick="showArticle('bgp-path-selection')">
+        <span class="post-tag pt-bgp">BGP</span>
+        <h3>BGP Path Selection — The 13-Step Decision Process</h3>
+        <p>BGP chooses the best path using a deterministic 13-step algorithm. Understanding it is the difference between guessing why BGP prefers a route and knowing.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-05-15</span>
+          <span class="read-time">11 min read</span>
+        </div>
+      </div>
+
+      <div class="article-card" data-cats="ccna" onclick="showArticle('stp-rstp')">
+        <span class="post-tag pt-ccna">CCNA</span>
+        <h3>STP vs RSTP — Port States, Roles, and Why RSTP Is Faster</h3>
+        <p>Classic STP has 5 port states. RSTP has 3. Understanding what was removed and why is how you truly understand rapid convergence — not just memorise it.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-04-30</span>
+          <span class="read-time">8 min read</span>
+        </div>
+      </div>
+
+      <div class="article-card" data-cats="firewall" onclick="showArticle('palo-alto-app-id')">
+        <span class="post-tag pt-fw">Palo Alto</span>
+        <h3>How Palo Alto App-ID Actually Works Under the Hood</h3>
+        <p>App-ID isn't magic. It's a multi-stage identification engine. This article explains the four App-ID mechanisms — signature, decryption, protocol decoding, heuristics.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-04-18</span>
+          <span class="read-time">7 min read</span>
+        </div>
+      </div>
+
+      <div class="article-card" data-cats="automation" onclick="showArticle('ansible-fortigate')">
+        <span class="post-tag pt-auto">Automation</span>
+        <h3>Ansible + FortiGate: Your First Working Playbook</h3>
+        <p>From zero to a working Ansible playbook that configures a FortiGate firewall policy over REST API. Full YAML, inventory file, and common errors explained.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-04-05</span>
+          <span class="read-time">14 min read</span>
+        </div>
+      </div>
+
+      <div class="article-card" data-cats="ccnp bgp" onclick="showArticle('mpls-l3vpn')">
+        <span class="post-tag pt-bgp">MPLS</span>
+        <h3>MPLS L3VPN From Scratch — PE, CE, RD, RT Explained</h3>
+        <p>Route distinguisher vs route target — everyone gets them confused. This article builds an MPLS L3VPN step by step and explains every command you need.</p>
+        <div class="post-meta">
+          <span class="post-date">2025-03-22</span>
+          <span class="read-time">16 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE VIEW: OSPF LSA TYPES -->
+  <div id="article-ospf-lsa-types" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <span class="post-tag pt-ospf">OSPF</span>
+        <span class="post-tag pt-ospf">CCNP</span>
+        <span class="read-time" style="display:flex;align-items:center;">12 min read · June 10, 2025</span>
+      </div>
+      <h1>OSPF LSA Types 1–7 Explained — With Real LSDB Output</h1>
+      <p class="page-sub">Most CCNP candidates can name the LSA types. Far fewer can read a live LSDB and tell you exactly what each entry means. This article walks through all seven LSA types using actual output from a 5-router NIT Lab topology.</p>
+    </div>
+
+    <div class="article-body">
+      <h2>Why the LSDB Matters More Than the List</h2>
+      <p>You can memorise "Type 1 is a Router LSA, Type 2 is a Network LSA" and still have no idea what you're looking at when you run <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;color:var(--cyan);">show ip ospf database</code> on a live router. The exam tests the list. Production work tests your ability to read the database.</p>
+      <p>This article uses a 5-router topology in NIT Lab with Area 0 (backbone), Area 1 (standard), Area 2 (stub), Area 3 (NSSA), and an external redistribution source. Every LSA type is present and visible.</p>
+
+      <h2>The Topology</h2>
+      <div class="callout"><strong>Lab topology:</strong> R1 (ABR, Area 0↔1) — R2 (backbone, Area 0) — R3 (ABR, Area 0↔2 stub) — R4 (ABR, Area 0↔3 NSSA) — R5 (redistributes OSPF from a connected loopback, sits in Area 3)</div>
+
+      <h2>Type 1 — Router LSA</h2>
+      <p>Every OSPF router generates one Router LSA per area it belongs to. It describes the router's links within that area — interfaces, neighbors, and link costs. It floods only within its originating area.</p>
+      <div class="code-block"><pre><span class="cmd">R1# show ip ospf database router</span>
+<span class="out">            OSPF Router with ID (1.1.1.1) (Process ID 1)
+
+                Router Link States (Area 0)</span>
+
+<span class="ok">  LS age: 142
+  Options: (No TOS-capability, DC)
+  LS Type: Router Links
+  Link State ID: 1.1.1.1
+  Advertising Router: 1.1.1.1
+  Number of Links: 2
+
+    Link connected to: a Transit Network
+     (Link ID) Designated Router address: 10.0.0.2
+     (Link Data) Router Interface address: 10.0.0.1
+      Number of MTID metrics: 0
+       TOS 0 Metrics: 1</span></pre></div>
+      <p>The key fields: <strong>Advertising Router</strong> is the RID of the originator. <strong>Link State ID</strong> for a Type 1 is also the originator's RID. <strong>Number of Links</strong> shows how many interfaces this router has in this area.</p>
+
+      <h2>Type 2 — Network LSA</h2>
+      <p>Generated by the <strong>DR</strong> on a multi-access segment (Ethernet). It represents the segment and lists all routers attached to it. Also floods only within its area. If there's no DR (point-to-point link), there's no Type 2 LSA.</p>
+      <div class="code-block"><pre><span class="cmd">R1# show ip ospf database network</span>
+<span class="out">                Net Link States (Area 0)</span>
+
+<span class="ok">  LS age: 198
+  LS Type: Network Links
+  Link State ID: 10.0.0.2       &lt;-- DR's interface IP
+  Advertising Router: 2.2.2.2   &lt;-- DR's RID
+  Network Mask: /30
+   Attached Router: 2.2.2.2
+   Attached Router: 1.1.1.1</span></pre></div>
+
+      <h2>Type 3 — Summary LSA (Inter-Area)</h2>
+      <p>Generated by ABRs to advertise networks from one area into another. When R1 (ABR between Area 0 and Area 1) sends Area 1 routes into Area 0, it generates Type 3 LSAs. These are the mechanism for inter-area route summarization.</p>
+      <div class="code-block"><pre><span class="cmd">R1# show ip ospf database summary</span>
+<span class="out">                Summary Net Link States (Area 0)</span>
+
+<span class="ok">  LS age: 312
+  LS Type: Summary Links(Network)
+  Link State ID: 192.168.1.0   &lt;-- network being advertised
+  Advertising Router: 1.1.1.1  &lt;-- the ABR
+  Network Mask: /24
+        MTID: 0         Metric: 1</span></pre></div>
+      <p>Type 3 LSAs <strong>do not enter stub areas</strong> for external routes — they carry inter-area prefixes. This is why a stub area doesn't learn Type 5 externals but does learn inter-area routes via Type 3 (unless it's totally stubby).</p>
+
+      <h2>Type 4 — ASBR Summary LSA</h2>
+      <p>This tells routers in other areas <em>how to reach the ASBR</em> (the router doing redistribution). The ABR generates it when it sees a Type 1 LSA from an ASBR inside its area. Without Type 4, routers in Area 0 wouldn't know the path cost to reach R5.</p>
+      <div class="code-block"><pre><span class="cmd">R1# show ip ospf database asbr-summary</span>
+<span class="ok">  LS Type: Summary Links(AS Boundary Router)
+  Link State ID: 5.5.5.5       &lt;-- ASBR's RID
+  Advertising Router: 4.4.4.4  &lt;-- ABR that generated it
+  Network Mask: /0
+        Metric: 10</span></pre></div>
+
+      <h2>Type 5 — AS External LSA</h2>
+      <p>Generated by the ASBR for each redistributed external route. Floods throughout the entire OSPF domain — <strong>except stub and NSSA areas</strong>. This is why you can't redistribute into OSPF and have that route seen inside a stub area.</p>
+      <div class="code-block"><pre><span class="cmd">R1# show ip ospf database external</span>
+<span class="ok">                Type-5 AS External Link States
+
+  LS Type: AS External Link
+  Link State ID: 172.16.0.0    &lt;-- external prefix
+  Advertising Router: 5.5.5.5  &lt;-- ASBR's RID
+  Network Mask: /16
+        Metric Type: 2 (Larger than any link state path)
+        Metric: 20
+        Forward Address: 0.0.0.0</span></pre></div>
+      <p>The <strong>metric type</strong> matters: E1 adds OSPF internal cost to the external metric; E2 (default) uses only the external metric regardless of internal cost. Most deployments use E2.</p>
+
+      <h2>Type 7 — NSSA External LSA</h2>
+      <p>Area 3 in our topology is an NSSA. When R5 redistributes into OSPF inside Area 3, it can't generate Type 5 (they're blocked at the area boundary). Instead it generates a <strong>Type 7 LSA</strong> that is local to the NSSA. The ABR (R4) then <em>translates</em> it to a Type 5 before flooding it into the backbone.</p>
+      <div class="code-block"><pre><span class="cmd">R4# show ip ospf database nssa-external</span>
+<span class="ok">                Type-7 AS External Link States (Area 3)
+
+  LS Type: AS External Link
+  Link State ID: 10.99.0.0
+  Advertising Router: 5.5.5.5
+  Network Mask: /24
+        Metric Type: 2
+        Metric: 20
+        Forward Address: 10.3.0.5    &lt;-- next hop to ASBR</span></pre></div>
+      <div class="callout"><strong>Key exam point:</strong> Type 6 (Multicast LSA) is defined but not implemented by Cisco. You will not see it in an LSDB on IOS. It exists in the spec only.</div>
+
+      <h2>Quick Reference</h2>
+      <p>LSA Type 1 — Router LSA — per-area, generated by every router, describes links within the area. Type 2 — Network LSA — per multi-access segment, generated by DR only. Type 3 — Summary LSA — inter-area routes, generated by ABR. Type 4 — ASBR Summary — path to ASBR, generated by ABR. Type 5 — AS External — redistributed routes, floods everywhere except stub/NSSA. Type 7 — NSSA External — redistributed routes inside NSSA only, translated to Type 5 by ABR.</p>
+
+      <h2>Practice This in NIT Lab</h2>
+      <p>The OSPF multi-area topology is available in the NIT Lab library for Weekly and Monthly pass holders. Load it, run <code style="font-family:'JetBrains Mono',monospace;font-size:0.85em;color:var(--cyan);">show ip ospf database</code> on each router, and identify every LSA type and its originator. That exercise — done once in a real lab — sticks better than re-reading this article three times.</p>
+
+      <div style="margin-top:2.5rem;padding:1.5rem;background:var(--card);border:1px solid rgba(0,212,255,0.2);border-radius:10px;">
+        <p style="font-size:0.9rem;margin-bottom:1rem;"><strong>Ready to practice?</strong> The OSPF multi-area lab topology is pre-loaded for NIT Lab weekly and monthly pass holders.</p>
+        <a href="booking.html" style="display:inline-block;background:var(--amber);color:#0A0F1E;padding:0.7rem 1.6rem;border-radius:8px;font-weight:700;font-size:0.875rem;text-decoration:none;">Rent NIT Lab — from €39/week</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLACEHOLDER ARTICLE VIEWS -->
+  <div id="article-fortigate-packet-flow" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;"><span class="post-tag pt-fw">FortiGate</span><span class="read-time" style="display:flex;align-items:center;">9 min read · May 28, 2025</span></div>
+      <h1>FortiGate Packet Flow — All 7 Stages With debug flow</h1>
+      <p class="page-sub">A full walkthrough of what happens to a packet inside FortiOS, from ingress interface to egress — with live debug output at each stage.</p>
+    </div>
+    <div class="article-body">
+      <p>Full article coming soon. <a href="contact.html" style="color:var(--cyan);">Sign up for updates via our contact form.</a></p>
+    </div>
+  </div>
+
+  <div id="article-bgp-path-selection" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;"><span class="post-tag pt-bgp">BGP</span><span class="read-time" style="display:flex;align-items:center;">11 min read · May 15, 2025</span></div>
+      <h1>BGP Path Selection — The 13-Step Decision Process</h1>
+      <p class="page-sub">BGP chooses the best path using a deterministic 13-step algorithm. Understanding it is the difference between guessing and knowing.</p>
+    </div>
+    <div class="article-body"><p>Full article coming soon. <a href="contact.html" style="color:var(--cyan);">Sign up for updates.</a></p></div>
+  </div>
+
+  <div id="article-stp-rstp" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;"><span class="post-tag pt-ccna">CCNA</span><span class="read-time" style="display:flex;align-items:center;">8 min read · April 30, 2025</span></div>
+      <h1>STP vs RSTP — Port States, Roles, and Why RSTP Is Faster</h1>
+      <p class="page-sub">Classic STP has 5 port states. RSTP has 3. Here's what was removed, why, and how RSTP achieves rapid convergence.</p>
+    </div>
+    <div class="article-body"><p>Full article coming soon. <a href="contact.html" style="color:var(--cyan);">Sign up for updates.</a></p></div>
+  </div>
+
+  <div id="article-palo-alto-app-id" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;"><span class="post-tag pt-fw">Palo Alto</span></div>
+      <h1>How Palo Alto App-ID Actually Works Under the Hood</h1>
+    </div>
+    <div class="article-body"><p>Full article coming soon. <a href="contact.html" style="color:var(--cyan);">Sign up for updates.</a></p></div>
+  </div>
+
+  <div id="article-ansible-fortigate" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;"><span class="post-tag pt-auto">Automation</span></div>
+      <h1>Ansible + FortiGate: Your First Working Playbook</h1>
+    </div>
+    <div class="article-body"><p>Full article coming soon. <a href="contact.html" style="color:var(--cyan);">Sign up for updates.</a></p></div>
+  </div>
+
+  <div id="article-mpls-l3vpn" class="article-view">
+    <button class="back-btn" onclick="showList()">← Back to Blog</button>
+    <div class="article-header">
+      <div style="display:flex;gap:0.5rem;"><span class="post-tag pt-bgp">MPLS</span></div>
+      <h1>MPLS L3VPN From Scratch — PE, CE, RD, RT Explained</h1>
+    </div>
+    <div class="article-body"><p>Full article coming soon. <a href="contact.html" style="color:var(--cyan);">Sign up for updates.</a></p></div>
+  </div>
+
+</div><!-- end page-wrap -->
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="ccna.html">CCNA</a>
+    <a href="ccnp.html">CCNP</a>
+    <a href="firewall.html">Firewall</a>
+    <a href="booking.html">Lab Rental</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p class="footer-copy">© 2025 Network Instructors · networkinstructors.com</p>
+</footer>
+
+<script>
+  function showArticle(id) {
+    document.getElementById('blog-list').style.display = 'none';
+    document.querySelectorAll('.article-view').forEach(el => el.style.display = 'none');
+    const art = document.getElementById('article-' + id);
+    if (art) { art.style.display = 'block'; window.scrollTo({top:0,behavior:'smooth'}); }
+  }
+
+  function showList() {
+    document.querySelectorAll('.article-view').forEach(el => el.style.display = 'none');
+    document.getElementById('blog-list').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function filterPosts(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.article-card');
+    cards.forEach(card => {
+      if (cat === 'all') { card.style.display = 'flex'; return; }
+      const cats = (card.dataset.cats || '').split(' ');
+      card.style.display = cats.includes(cat) ? 'flex' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CCNP Enterprise v9 — ENCOR + ENARSI — Network Instructors</title>
+  <meta name="description" content="Cisco CCNP Enterprise v9 — ENCOR 350-401 and ENARSI 300-410. Advanced routing, SD-WAN, BGP, MPLS, automation. NIT Lab included."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--slate:#111827;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--cyan-dim:#0099BB;--amber:#FF8C00;--amber-dk:#CC7000;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none;color:var(--white);}
+    .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:18px;height:18px;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--amber);color:#0A0F1E!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600!important;}
+    @media(max-width:768px){.nav-links{display:none;}}
+    .breadcrumb{padding:90px 5vw 0;max-width:1200px;margin:0 auto;}
+    .breadcrumb a{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .breadcrumb a:hover{color:var(--cyan);}
+    .breadcrumb span{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--cyan);margin:0 6px;}
+    .course-hero{padding:40px 5vw 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--amber);background:rgba(255,140,0,0.08);border:1px solid rgba(255,140,0,0.2);padding:0.35rem 0.8rem;border-radius:4px;margin-bottom:1.2rem;}
+    .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,140,0,0.6);}50%{box-shadow:0 0 0 5px rgba(255,140,0,0);}}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+    h1 .accent{color:var(--amber);}
+    .hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;max-width:580px;}
+    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+    .stat{display:flex;flex-direction:column;}
+    .stat-val{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:var(--white);}
+    .stat-label{font-size:0.78rem;color:var(--muted);}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+    .tag{font-family:'JetBrains Mono',monospace;font-size:0.67rem;padding:0.25rem 0.55rem;border-radius:4px;background:rgba(255,140,0,0.07);color:var(--amber);border:1px solid rgba(255,140,0,0.15);}
+    .btn-primary{background:var(--amber);color:#0A0F1E;padding:0.85rem 2rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.15s;}
+    .btn-primary:hover{background:var(--amber-dk);transform:translateY(-1px);}
+    .btn-secondary{background:transparent;color:var(--white);padding:0.85rem 2rem;border-radius:8px;border:1px solid var(--border);font-weight:600;font-size:0.95rem;text-decoration:none;display:inline-block;transition:border-color 0.2s,color 0.2s;margin-left:1rem;}
+    .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);}
+    .enroll-card{background:var(--card);border:1px solid rgba(255,140,0,0.2);border-radius:14px;padding:2rem;position:sticky;top:88px;}
+    .enroll-price{font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;margin-bottom:0.3rem;}
+    .enroll-price span{font-size:1rem;color:var(--muted);font-weight:400;}
+    .enroll-desc{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+    .enroll-features{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;}
+    .enroll-features li{font-size:0.875rem;color:var(--muted);padding-left:1.4rem;position:relative;}
+    .enroll-features li::before{content:'✓';position:absolute;left:0;color:var(--green);}
+    .enroll-btn{display:block;text-align:center;background:var(--amber);color:#0A0F1E;padding:0.9rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:background 0.2s;}
+    .enroll-btn:hover{background:var(--amber-dk);}
+    .enroll-lab{display:block;text-align:center;margin-top:0.75rem;padding:0.75rem;border-radius:8px;border:1px solid rgba(0,212,255,0.3);color:var(--cyan);font-size:0.875rem;font-weight:600;text-decoration:none;transition:background 0.2s;}
+    .enroll-lab:hover{background:rgba(0,212,255,0.07);}
+    .enroll-divider{border:none;border-top:1px solid var(--border);margin:1.2rem 0;}
+    .enroll-meta{font-size:0.78rem;color:var(--muted);text-align:center;}
+    .content-wrap{max-width:1200px;margin:0 auto;padding:0 5vw 100px;}
+    .section-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.6rem;}
+    h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;line-height:1.2;letter-spacing:-0.02em;margin-bottom:1rem;}
+    .content-block{margin-bottom:60px;}
+
+    /* EXAM TRACK SELECTOR */
+    .track-tabs{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap;}
+    .track-tab{font-family:'JetBrains Mono',monospace;font-size:0.78rem;padding:0.5rem 1.2rem;border-radius:6px;border:1px solid var(--border);color:var(--muted);cursor:pointer;background:transparent;transition:all 0.2s;}
+    .track-tab.active{background:rgba(255,140,0,0.1);border-color:rgba(255,140,0,0.3);color:var(--amber);}
+
+    .syllabus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem;margin-top:2rem;}
+    .module-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.2s;}
+    .module-card:hover{border-color:rgba(255,140,0,0.25);}
+    .module-header{display:flex;align-items:center;gap:10px;margin-bottom:0.8rem;}
+    .module-num{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--amber);background:rgba(255,140,0,0.08);border:1px solid rgba(255,140,0,0.2);padding:0.15rem 0.5rem;border-radius:4px;}
+    .module-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.95rem;}
+    .module-topics{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
+    .module-topics li{font-size:0.8rem;color:var(--muted);padding-left:1rem;position:relative;}
+    .module-topics li::before{content:'→';position:absolute;left:0;color:var(--border);font-size:0.7rem;}
+    .outcomes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:2rem;}
+    .outcome-item{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;}
+    .outcome-icon{color:var(--green);margin-top:2px;flex-shrink:0;}
+    .outcome-item p{font-size:0.875rem;color:var(--muted);line-height:1.5;}
+    .outcome-item strong{color:var(--white);display:block;font-size:0.875rem;margin-bottom:0.2rem;}
+    .labs-list{display:flex;flex-direction:column;gap:0.8rem;margin-top:2rem;}
+    .lab-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;transition:border-color 0.2s;}
+    .lab-item:hover{border-color:rgba(255,140,0,0.2);}
+    .lab-item-icon{font-size:1.2rem;flex-shrink:0;}
+    .lab-item-content strong{font-size:0.9rem;color:var(--white);display:block;margin-bottom:0.2rem;}
+    .lab-item-content span{font-size:0.8rem;color:var(--muted);}
+    .lab-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;background:rgba(255,140,0,0.07);color:var(--amber);border:1px solid rgba(255,140,0,0.15);white-space:nowrap;flex-shrink:0;}
+    .dual-exam{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;}
+    .exam-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.8rem;}
+    .exam-card.core{border-color:rgba(255,140,0,0.2);}
+    .exam-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin-bottom:1rem;color:var(--amber);}
+    .exam-row{display:flex;justify-content:space-between;align-items:center;padding:0.5rem 0;border-bottom:1px solid var(--border);font-size:0.84rem;}
+    .exam-row:last-child{border-bottom:none;}
+    .exam-row label{color:var(--muted);}
+    .exam-row value{font-family:'JetBrains Mono',monospace;color:var(--white);}
+    footer{padding:40px 5vw;border-top:1px solid var(--border);text-align:center;}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .footer-nav a{font-size:0.85rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .footer-nav a:hover{color:var(--cyan);}
+    .footer-copy{font-size:0.8rem;color:var(--border);}
+    @media(max-width:900px){.course-hero{grid-template-columns:1fr;}.enroll-card{position:static;margin-top:2rem;}.dual-exam{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+    Network<span style="color:var(--cyan)">.</span>Instructors
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#courses">Courses</a></li>
+    <li><a href="index.html#labs">NIT Labs</a></li>
+    <li><a href="index.html#rental">Lab Rental</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="booking.html" class="nav-cta">Rent a Lab</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span><a href="index.html#courses">Courses</a><span>/</span><span style="color:var(--white)">CCNP Enterprise</span>
+</div>
+
+<div class="course-hero">
+  <div>
+    <div class="hero-badge"><span class="pulse-dot"></span>Cisco NetAcad Authorized · v9 · ENCOR 350-401 + ENARSI 300-410</div>
+    <h1>Cisco <span class="accent">CCNP</span><br>Enterprise <span style="font-size:0.55em;color:var(--muted);font-weight:400;">v9</span></h1>
+    <p class="hero-desc">The full CCNP Enterprise v9 track — the latest Cisco NetAcad curriculum update. ENCOR (core exam) plus ENARSI (advanced routing concentration). Advanced BGP, OSPF, EIGRP, SD-WAN, QoS, and infrastructure automation. Built for engineers who've passed CCNA and want to go deeper into enterprise architecture.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">280h</span><span class="stat-label">Total hours</span></div>
+      <div class="stat"><span class="stat-val">45+</span><span class="stat-label">NIT Lab sessions</span></div>
+      <div class="stat"><span class="stat-val">2</span><span class="stat-label">Exams (ENCOR + ENARSI)</span></div>
+      <div class="stat"><span class="stat-val">CCNA</span><span class="stat-label">Recommended prerequisite</span></div>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">ENCOR 350-401</span><span class="tag">ENARSI 300-410</span><span class="tag">BGP</span><span class="tag">Advanced OSPF</span><span class="tag">EIGRP</span><span class="tag">SD-WAN</span><span class="tag">MPLS</span><span class="tag">QoS</span><span class="tag">VRF</span><span class="tag">Ansible</span>
+    </div>
+    <a href="booking.html" class="btn-primary">Enroll Now</a>
+    <a href="booking.html?plan=monthly" class="btn-secondary">Try NIT Lab — €99/mo</a>
+  </div>
+
+  <div class="enroll-card">
+    <div class="enroll-price">€699<span> / full track</span></div>
+    <p class="enroll-desc">Both exams (ENCOR + ENARSI). Full 280-hour course with labs, recordings, and practice exams.</p>
+    <ul class="enroll-features">
+      <li>ENCOR 350-401 full coverage</li>
+      <li>ENARSI 300-410 full coverage</li>
+      <li>45+ NIT Lab guided sessions</li>
+      <li>BGP, OSPF, EIGRP advanced labs</li>
+      <li>SD-WAN Viptela lab topology</li>
+      <li>Practice exam bank (800+ Qs)</li>
+      <li>Instructor Q&amp;A sessions</li>
+      <li>Certificate upon completion</li>
+    </ul>
+    <a href="booking.html" class="enroll-btn">Enroll in CCNP Track</a>
+    <a href="booking.html?plan=monthly" class="enroll-lab">⚡ Rent NIT Lab only — from €99/month</a>
+    <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0;"/>
+    <p class="enroll-meta">NetAcad v9 curriculum · exam codes unchanged (350-401 / 300-410)</p>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <div class="content-block">
+    <div class="section-label">// what you'll master</div>
+    <h2>Professional-Level Skills</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Advanced BGP</strong><p>eBGP, iBGP, route reflectors, policy with route-maps, path attributes, communities</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Multi-Area OSPF &amp; EIGRP</strong><p>Area types, LSA filtering, OSPF virtual links, EIGRP named mode, metric tuning</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>SD-WAN Architecture</strong><p>Cisco Viptela — vManage, vSmart, vBond, vEdge. OMP, policies, zero-touch provisioning</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>MPLS &amp; VRF</strong><p>MPLS label forwarding, VRF-Lite, L3VPN with MP-BGP, PE-CE routing options</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Infrastructure Security</strong><p>Control plane policing, ZBFW, uRPF, MACsec, AAA advanced, 802.1X</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Network Automation</strong><p>Ansible playbooks for IOS-XE, Python Netmiko/NAPALM, YANG models, RESTCONF</p></div></div>
+    </div>
+  </div>
+
+  <!-- ENCOR SYLLABUS -->
+  <div class="content-block">
+    <div class="section-label">// exam 1 · encor 350-401 · v9 curriculum</div>
+    <h2>ENCOR — Core Enterprise Networking (v9)</h2>
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 1 · 15%</span><span class="module-title">Architecture</span></div>
+        <ul class="module-topics">
+          <li>Enterprise network design — 2-tier vs 3-tier vs spine/leaf</li>
+          <li>SD-Access fabric — underlay, overlay, control/data plane</li>
+          <li>SD-WAN architecture — components and traffic flow</li>
+          <li>Cloud on-ramp — colocation, IaaS, SaaS</li>
+          <li>High availability — graceful restart, NSF, NSR</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 2 · 10%</span><span class="module-title">Virtualization</span></div>
+        <ul class="module-topics">
+          <li>Network virtualization — VRF, GRE, LISP</li>
+          <li>Data center virtualization — VXLAN concepts, NV overlay</li>
+          <li>Virtualization components — hypervisors, vSphere, KVM</li>
+          <li>Container networking — Docker, Kubernetes basics</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 3 · 30%</span><span class="module-title">Infrastructure</span></div>
+        <ul class="module-topics">
+          <li>Layer 2 — advanced STP (MSTP), PVST+ tuning, BPDU guard/filter</li>
+          <li>Layer 3 — OSPFv2/v3 multi-area, LSA types 1–7, area types</li>
+          <li>BGP — eBGP/iBGP, route reflectors, attributes, path selection</li>
+          <li>EIGRP — named mode, dual algorithm, feasible successor</li>
+          <li>Multicast — PIM-SM/DM, IGMP, RP placement, BSR</li>
+          <li>QoS — classification, marking, queuing, shaping, policing, DSCP</li>
+          <li>IP services — FHRP (HSRP/VRRP/GLBP), NAT/PAT, DHCP relay</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 4 · 25%</span><span class="module-title">Network Assurance</span></div>
+        <ul class="module-topics">
+          <li>Troubleshooting methodology — OSI-based structured approach</li>
+          <li>SNMP v2c/v3, NetFlow/IPFIX, SPAN/RSPAN/ERSPAN</li>
+          <li>IP SLA — probes, reaction, tracking objects</li>
+          <li>Cisco DNA Center — assurance, telemetry, path trace</li>
+          <li>Wireshark and CLI debug techniques</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 5 · 20%</span><span class="module-title">Security</span></div>
+        <ul class="module-topics">
+          <li>Device access — AAA, TACACS+, RADIUS, local fallback</li>
+          <li>Control plane policing (CoPP)</li>
+          <li>Zone-based firewall (ZBFW) on IOS</li>
+          <li>MACsec — 802.1AE layer 2 encryption</li>
+          <li>802.1X — port-based authentication, EAP types</li>
+          <li>uRPF, IP source guard, DHCP snooping advanced</li>
+          <li>VPN — DMVPN (phase 1/2/3), FlexVPN overview</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 6 · 10%</span><span class="module-title">Automation</span></div>
+        <ul class="module-topics">
+          <li>Python for networking — Netmiko, NAPALM, nornir</li>
+          <li>Ansible — playbooks, roles, IOS-XE modules</li>
+          <li>REST APIs — IOS-XE RESTCONF, DNA Center API</li>
+          <li>YANG models — pyang, NETCONF operations</li>
+          <li>Git — version control for network config</li>
+          <li>CI/CD pipeline concepts for network automation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENARSI SYLLABUS -->
+  <div class="content-block">
+    <div class="section-label">// exam 2 · enarsi 300-410 · v9 curriculum</div>
+    <h2>ENARSI — Advanced Routing &amp; Services (v9)</h2>
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 1 · 35%</span><span class="module-title">Layer 3 Technologies</span></div>
+        <ul class="module-topics">
+          <li>OSPFv2/v3 advanced — virtual links, stub/NSSA areas, filtering</li>
+          <li>EIGRP advanced — summarization, filtering, named mode</li>
+          <li>BGP advanced — communities, local preference, MED, weight</li>
+          <li>BGP route policies — prefix lists, route-maps, regexp</li>
+          <li>Path manipulation — AS-path prepending, conditional advertisement</li>
+          <li>IPv6 routing — redistribution, filtering, dual-stack design</li>
+          <li>Route redistribution — multiple protocols, metric translation</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 2 · 20%</span><span class="module-title">VPN Technologies</span></div>
+        <ul class="module-topics">
+          <li>MPLS — LDP, label assignment, label switching</li>
+          <li>MPLS L3VPN — MP-BGP, VRF, route distinguisher/target</li>
+          <li>DMVPN — phase 1, 2, 3 — mGRE, NHRP, IPSec profile</li>
+          <li>FlexVPN — IKEv2, smart defaults, spoke-to-spoke</li>
+          <li>IPSec — IKEv1/v2, transform sets, crypto maps vs VTI</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 3 · 25%</span><span class="module-title">Infrastructure Security</span></div>
+        <ul class="module-topics">
+          <li>Device hardening — AAA, privilege levels, role-based access</li>
+          <li>Control plane — CoPP, CPPr, routing protocol authentication</li>
+          <li>IPv6 security — RA guard, DHCPv6 guard, SEND</li>
+          <li>ZBFW advanced — policy maps, inspect, URL filtering</li>
+          <li>uRPF strict vs loose mode</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 4 · 20%</span><span class="module-title">Infrastructure Services</span></div>
+        <ul class="module-topics">
+          <li>IP SLA — advanced probes, tracking, floating static routes</li>
+          <li>Object tracking — interface, route, IP SLA combined</li>
+          <li>NetFlow v5/v9, flexible NetFlow, IPFIX</li>
+          <li>SNMP advanced — MIB walks, trap configuration</li>
+          <li>BFD — Bidirectional Forwarding Detection with OSPF/BGP</li>
+          <li>Performance routing (PfR/OER) concepts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAB SESSIONS -->
+  <div class="content-block">
+    <div class="section-label">// nit lab sessions</div>
+    <h2>Advanced Lab Schedule</h2>
+    <div class="labs-list">
+      <div class="lab-item"><span class="lab-item-icon">🔀</span><div class="lab-item-content"><strong>BGP Full-Mesh &amp; Route Reflector Lab</strong><span>4 AS topology — eBGP peering, iBGP with route reflector, prefix filtering, path attribute manipulation</span></div><span class="lab-badge">ENCOR/ENARSI</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🌐</span><div class="lab-item-content"><strong>Multi-Area OSPF with LSA Filtering</strong><span>5-router multi-area topology — LSA types 3/5/7, stub/NSSA areas, virtual links, summary routes</span></div><span class="lab-badge">ENCOR/ENARSI</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🏗️</span><div class="lab-item-content"><strong>MPLS L3VPN Lab</strong><span>PE-CE routing with MP-BGP, VRF-Lite, route distinguisher/target — real MPLS forwarding plane</span></div><span class="lab-badge">ENARSI</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🌉</span><div class="lab-item-content"><strong>DMVPN Phase 2 &amp; 3 with IPSec</strong><span>Hub-and-spoke to spoke-to-spoke — NHRP redirect, shortcut paths, IPSec profiles</span></div><span class="lab-badge">ENARSI</span></div>
+      <div class="lab-item"><span class="lab-item-icon">📡</span><div class="lab-item-content"><strong>SD-WAN Viptela Lab</strong><span>vManage + vSmart + vBond + vEdge — bring-up, OMP policy, centralized data policy</span></div><span class="lab-badge">ENCOR</span></div>
+      <div class="lab-item"><span class="lab-item-icon">⚡</span><div class="lab-item-content"><strong>QoS End-to-End Lab</strong><span>DSCP marking at access, queuing on WAN link, policing, verify with IP SLA probes</span></div><span class="lab-badge">ENCOR</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🤖</span><div class="lab-item-content"><strong>Ansible Automation Lab</strong><span>Write playbooks from scratch — configure OSPF, BGP neighbors, and ACLs on live IOS-XE routers</span></div><span class="lab-badge">ENCOR</span></div>
+    </div>
+  </div>
+
+  <!-- EXAM INFO -->
+  <div class="content-block">
+    <div class="section-label">// exam details</div>
+    <h2>Two-Exam Track</h2>
+    <div class="dual-exam">
+      <div class="exam-card core">
+        <h3>ENCOR — Core Exam (Required) · v9</h3>
+        <div class="exam-row"><label>Exam code</label><value>350-401</value></div>
+        <div class="exam-row"><label>Duration</label><value>120 minutes</value></div>
+        <div class="exam-row"><label>Questions</label><value>90–110</value></div>
+        <div class="exam-row"><label>Format</label><value>MCQ + drag-drop + sim</value></div>
+        <div class="exam-row"><label>Passing score</label><value>~750 / 1000</value></div>
+        <div class="exam-row"><label>Delivered by</label><value>Pearson VUE</value></div>
+        <div class="exam-row"><label>Cost</label><value>~€400 (NL)</value></div>
+      </div>
+      <div class="exam-card">
+        <h3>ENARSI — Concentration Exam · v9</h3>
+        <div class="exam-row"><label>Exam code</label><value>300-410</value></div>
+        <div class="exam-row"><label>Duration</label><value>90 minutes</value></div>
+        <div class="exam-row"><label>Questions</label><value>55–65</value></div>
+        <div class="exam-row"><label>Format</label><value>MCQ + drag-drop + sim</value></div>
+        <div class="exam-row"><label>Passing score</label><value>~750 / 1000</value></div>
+        <div class="exam-row"><label>Delivered by</label><value>Pearson VUE</value></div>
+        <div class="exam-row"><label>Cost</label><value>~€330 (NL)</value></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="ccna.html">CCNA</a>
+    <a href="firewall.html">Firewall</a>
+    <a href="booking.html">Lab Rental</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p class="footer-copy">© 2025 Network Instructors · networkinstructors.com · Cisco NetAcad Authorized</p>
+</footer>
+
+</body>
+</html>

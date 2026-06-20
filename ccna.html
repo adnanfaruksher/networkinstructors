@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CCNA 200-301 Course — Network Instructors</title>
+  <meta name="description" content="Cisco CCNA 200-301 — Full NetAcad authorized curriculum. Network fundamentals, switching, routing, wireless, security, automation. Lab-heavy with NIT Lab access."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--slate:#111827;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--cyan-dim:#0099BB;--amber:#FF8C00;--amber-dk:#CC7000;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none;color:var(--white);}
+    .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:18px;height:18px;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--amber);color:#0A0F1E!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600!important;}
+    .nav-cta:hover{background:var(--amber-dk)!important;}
+    @media(max-width:768px){.nav-links{display:none;}}
+
+    /* BREADCRUMB */
+    .breadcrumb{padding:90px 5vw 0;max-width:1200px;margin:0 auto;}
+    .breadcrumb a{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);text-decoration:none;}
+    .breadcrumb a:hover{color:var(--cyan);}
+    .breadcrumb span{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--cyan);margin:0 6px;}
+
+    /* HERO */
+    .course-hero{padding:40px 5vw 80px;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start;}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--cyan);background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);padding:0.35rem 0.8rem;border-radius:4px;margin-bottom:1.2rem;}
+    .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pulse 2s ease-in-out infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,212,255,0.6);}50%{box-shadow:0 0 0 5px rgba(0,212,255,0);}}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.2rem;}
+    h1 .accent{color:var(--cyan);}
+    .hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:2rem;max-width:580px;}
+    .hero-stats{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2rem;}
+    .stat{display:flex;flex-direction:column;}
+    .stat-val{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:var(--white);}
+    .stat-label{font-size:0.78rem;color:var(--muted);}
+    .hero-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+    .tag{font-family:'JetBrains Mono',monospace;font-size:0.67rem;padding:0.25rem 0.55rem;border-radius:4px;background:rgba(0,212,255,0.07);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);}
+    .btn-primary{background:var(--amber);color:#0A0F1E;padding:0.85rem 2rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.15s;}
+    .btn-primary:hover{background:var(--amber-dk);transform:translateY(-1px);}
+    .btn-secondary{background:transparent;color:var(--white);padding:0.85rem 2rem;border-radius:8px;border:1px solid var(--border);font-weight:600;font-size:0.95rem;text-decoration:none;display:inline-block;transition:border-color 0.2s,color 0.2s;margin-left:1rem;}
+    .btn-secondary:hover{border-color:var(--cyan);color:var(--cyan);}
+
+    /* ENROLL CARD */
+    .enroll-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;position:sticky;top:88px;}
+    .enroll-price{font-family:'Space Grotesk',sans-serif;font-size:2.4rem;font-weight:700;margin-bottom:0.3rem;}
+    .enroll-price span{font-size:1rem;color:var(--muted);font-weight:400;}
+    .enroll-desc{font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;}
+    .enroll-features{list-style:none;display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.8rem;}
+    .enroll-features li{font-size:0.875rem;color:var(--muted);padding-left:1.4rem;position:relative;}
+    .enroll-features li::before{content:'✓';position:absolute;left:0;color:var(--green);}
+    .enroll-btn{display:block;text-align:center;background:var(--amber);color:#0A0F1E;padding:0.9rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:background 0.2s;}
+    .enroll-btn:hover{background:var(--amber-dk);}
+    .enroll-lab{display:block;text-align:center;margin-top:0.75rem;padding:0.75rem;border-radius:8px;border:1px solid rgba(0,212,255,0.3);color:var(--cyan);font-size:0.875rem;font-weight:600;text-decoration:none;transition:background 0.2s;}
+    .enroll-lab:hover{background:rgba(0,212,255,0.07);}
+    .enroll-divider{border:none;border-top:1px solid var(--border);margin:1.2rem 0;}
+    .enroll-meta{font-size:0.78rem;color:var(--muted);text-align:center;}
+
+    /* CONTENT SECTIONS */
+    .content-wrap{max-width:1200px;margin:0 auto;padding:0 5vw 100px;}
+    .section-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.6rem;}
+    h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;line-height:1.2;letter-spacing:-0.02em;margin-bottom:1rem;}
+    .content-block{margin-bottom:60px;}
+
+    /* SYLLABUS */
+    .syllabus-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem;margin-top:2rem;}
+    .module-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.4rem;transition:border-color 0.2s;}
+    .module-card:hover{border-color:rgba(0,212,255,0.25);}
+    .module-header{display:flex;align-items:center;gap:10px;margin-bottom:0.8rem;}
+    .module-num{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--cyan);background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);padding:0.15rem 0.5rem;border-radius:4px;}
+    .module-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.95rem;}
+    .module-topics{list-style:none;display:flex;flex-direction:column;gap:0.3rem;}
+    .module-topics li{font-size:0.8rem;color:var(--muted);padding-left:1rem;position:relative;}
+    .module-topics li::before{content:'→';position:absolute;left:0;color:var(--border);font-size:0.7rem;}
+
+    /* WHAT YOU LEARN */
+    .outcomes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:2rem;}
+    .outcome-item{display:flex;align-items:flex-start;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem;}
+    .outcome-icon{color:var(--green);margin-top:2px;flex-shrink:0;font-size:0.9rem;}
+    .outcome-item p{font-size:0.875rem;color:var(--muted);line-height:1.5;}
+    .outcome-item strong{color:var(--white);display:block;font-size:0.875rem;margin-bottom:0.2rem;}
+
+    /* LABS */
+    .labs-list{display:flex;flex-direction:column;gap:0.8rem;margin-top:2rem;}
+    .lab-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1.2rem;transition:border-color 0.2s;}
+    .lab-item:hover{border-color:rgba(0,212,255,0.2);}
+    .lab-item-icon{font-size:1.2rem;flex-shrink:0;}
+    .lab-item-content strong{font-size:0.9rem;color:var(--white);display:block;margin-bottom:0.2rem;}
+    .lab-item-content span{font-size:0.8rem;color:var(--muted);}
+    .lab-badge{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:0.65rem;padding:0.2rem 0.5rem;border-radius:4px;background:rgba(0,212,255,0.07);color:var(--cyan);border:1px solid rgba(0,212,255,0.15);white-space:nowrap;flex-shrink:0;}
+
+    /* EXAM */
+    .exam-card{background:var(--card);border:1px solid rgba(0,212,255,0.2);border-radius:12px;padding:2rem;margin-top:2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+    .exam-detail{display:flex;flex-direction:column;gap:1rem;}
+    .exam-row{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid var(--border);}
+    .exam-row:last-child{border-bottom:none;}
+    .exam-row label{font-size:0.85rem;color:var(--muted);}
+    .exam-row value{font-family:'JetBrains Mono',monospace;font-size:0.85rem;color:var(--white);font-weight:500;}
+    .exam-topics h4{font-family:'Space Grotesk',sans-serif;font-weight:600;margin-bottom:1rem;font-size:0.95rem;}
+    .exam-topic-bar{display:flex;flex-direction:column;gap:0.7rem;}
+    .topic-bar-item{display:flex;align-items:center;gap:0.8rem;}
+    .topic-name{font-size:0.78rem;color:var(--muted);width:180px;flex-shrink:0;}
+    .topic-bar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+    .topic-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cyan),var(--cyan-dim));}
+    .topic-pct{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--cyan);width:36px;text-align:right;}
+
+    /* FOOTER */
+    footer{padding:40px 5vw;border-top:1px solid var(--border);text-align:center;}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .footer-nav a{font-size:0.85rem;color:var(--muted);text-decoration:none;transition:color 0.2s;}
+    .footer-nav a:hover{color:var(--cyan);}
+    .footer-copy{font-size:0.8rem;color:var(--border);}
+
+    @media(max-width:900px){.course-hero{grid-template-columns:1fr;}.enroll-card{position:static;margin-top:2rem;}.exam-card{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+    Network<span style="color:var(--cyan)">.</span>Instructors
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#courses">Courses</a></li>
+    <li><a href="index.html#labs">NIT Labs</a></li>
+    <li><a href="index.html#rental">Lab Rental</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="booking.html" class="nav-cta">Rent a Lab</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="index.html">Home</a><span>/</span><a href="index.html#courses">Courses</a><span>/</span><span style="color:var(--white)">CCNA 200-301</span>
+</div>
+
+<div class="course-hero">
+  <div>
+    <div class="hero-badge"><span class="pulse-dot"></span>Cisco NetAcad Authorized · CCNA 200-301</div>
+    <h1>Cisco <span class="accent">CCNA</span><br>200-301</h1>
+    <p class="hero-desc">The complete Cisco CCNA curriculum — fully aligned with the official 200-301 exam blueprint. Network fundamentals through automation, built around hands-on NIT Lab sessions covering every topic before you sit the exam.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-val">160h</span><span class="stat-label">Total course hours</span></div>
+      <div class="stat"><span class="stat-val">30+</span><span class="stat-label">NIT Lab sessions</span></div>
+      <div class="stat"><span class="stat-val">6</span><span class="stat-label">Exam domains</span></div>
+      <div class="stat"><span class="stat-val">825</span><span class="stat-label">Pass score / 1000</span></div>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">CCNA 200-301</span><span class="tag">Cisco NetAcad</span><span class="tag">VLANs</span><span class="tag">OSPF</span><span class="tag">STP/RSTP</span><span class="tag">IPv6</span><span class="tag">ACLs</span><span class="tag">NAT</span><span class="tag">Wireless</span><span class="tag">Automation</span>
+    </div>
+    <a href="booking.html" class="btn-primary">Enroll Now</a>
+    <a href="booking.html?plan=weekly" class="btn-secondary">Try NIT Lab First</a>
+  </div>
+
+  <div class="enroll-card">
+    <div class="enroll-price">€349<span> / full course</span></div>
+    <p class="enroll-desc">One-time payment. Lifetime access to course recordings, materials, and NetAcad resources.</p>
+    <ul class="enroll-features">
+      <li>160 hours of instruction</li>
+      <li>30+ guided NIT Lab sessions</li>
+      <li>Cisco NetAcad portal access</li>
+      <li>Official Cisco NetAcad certificate</li>
+      <li>Practice exam bank (500+ Qs)</li>
+      <li>Instructor Q&amp;A sessions</li>
+      <li>Study group access</li>
+    </ul>
+    <a href="booking.html" class="enroll-btn">Enroll Now</a>
+    <a href="booking.html?plan=weekly" class="enroll-lab">⚡ Rent NIT Lab only — from €39/week</a>
+    <hr class="enroll-divider"/>
+    <p class="enroll-meta">Cisco NetAcad authorized · Certificate upon completion</p>
+  </div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- OUTCOMES -->
+  <div class="content-block">
+    <div class="section-label">// what you'll be able to do</div>
+    <h2>Skills After This Course</h2>
+    <div class="outcomes-grid">
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Configure enterprise switching</strong><p>VLANs, trunks, STP/RSTP, EtherChannel, inter-VLAN routing on Layer 3 switches</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Build routed networks</strong><p>Static routes, OSPFv2/v3, default routing, IPv4 and IPv6 dual-stack</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Secure access layers</strong><p>ACLs, port security, DHCP snooping, dynamic ARP inspection</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Deploy WAN connectivity</strong><p>PPP, HDLC, NAT/PAT, IPSec VPN fundamentals, SD-WAN concepts</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Manage wireless networks</strong><p>WLAN architecture, WPA2/WPA3, CAPWAP, Cisco WLC basics</p></div></div>
+      <div class="outcome-item"><span class="outcome-icon">✓</span><div><strong>Automate with Python &amp; REST</strong><p>Ansible basics, REST APIs, YANG/NETCONF, configuration management intro</p></div></div>
+    </div>
+  </div>
+
+  <!-- SYLLABUS -->
+  <div class="content-block">
+    <div class="section-label">// official cisco syllabus · 200-301 blueprint</div>
+    <h2>Full Course Syllabus</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:0.5rem;">Aligned with Cisco's official CCNA 200-301 exam topics v1.1. All six domains covered in order.</p>
+
+    <div class="syllabus-grid">
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 1 · 20%</span><span class="module-title">Network Fundamentals</span></div>
+        <ul class="module-topics">
+          <li>Network components: routers, switches, firewalls, APs, controllers</li>
+          <li>TCP/IP model vs OSI — layer functions and PDUs</li>
+          <li>IPv4 addressing — classful, CIDR, VLSM, subnetting</li>
+          <li>IPv6 addressing — types, EUI-64, stateless autoconfiguration</li>
+          <li>TCP vs UDP — ports, three-way handshake, windowing</li>
+          <li>Ethernet switching — MAC table, ARP, frame forwarding</li>
+          <li>Wireless concepts — 802.11 standards, frequencies, channels</li>
+          <li>Physical cabling — copper, fiber, SFP, UTP categories</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 2 · 20%</span><span class="module-title">Network Access (Switching)</span></div>
+        <ul class="module-topics">
+          <li>VLANs — creation, port assignment, 802.1Q trunking, DTP</li>
+          <li>STP — 802.1D, PVST+, port roles and states, BPDU</li>
+          <li>Rapid PVST+ — RSTP port roles, proposal/agreement</li>
+          <li>EtherChannel — LACP, PAgP, configuration and verification</li>
+          <li>Layer 3 switching — SVIs, routed ports, inter-VLAN routing</li>
+          <li>Cisco WLC — CAPWAP, AP modes, WLAN profiles</li>
+          <li>WLAN security — WPA2 Personal/Enterprise, 802.1X basics</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 3 · 25%</span><span class="module-title">IP Connectivity (Routing)</span></div>
+        <ul class="module-topics">
+          <li>Routing fundamentals — routing table, AD, metric, longest match</li>
+          <li>Static routing — host routes, network routes, default routes</li>
+          <li>OSPFv2 single-area — router-id, DR/BDR election, LSA types</li>
+          <li>OSPFv2 configuration and verification — neighbors, LSDB, SPF</li>
+          <li>First Hop Redundancy — HSRP, VRRP concepts and config</li>
+          <li>IPv6 routing — static IPv6, OSPFv3 concepts</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 4 · 15%</span><span class="module-title">IP Services</span></div>
+        <ul class="module-topics">
+          <li>NAT — static NAT, dynamic NAT, PAT (overload)</li>
+          <li>DHCP — server config, relay agent, DORA process</li>
+          <li>DNS — A, AAAA, CNAME, MX records; resolution process</li>
+          <li>NTP — stratum, synchronization, NTP server config</li>
+          <li>SNMP — v2c vs v3, MIB, OID, traps vs polling</li>
+          <li>Syslog — severity levels, logging destinations</li>
+          <li>SSH — key generation, VTY config, version 2</li>
+          <li>TFTP/FTP — IOS image management</li>
+          <li>QoS concepts — DSCP, queuing, traffic shaping</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 5 · 15%</span><span class="module-title">Security Fundamentals</span></div>
+        <ul class="module-topics">
+          <li>Standard and extended ACLs — numbered and named</li>
+          <li>ACL placement — inbound vs outbound, wildcard masks</li>
+          <li>Port security — max MACs, violation modes, sticky</li>
+          <li>DHCP snooping — trusted/untrusted ports, rate limiting</li>
+          <li>Dynamic ARP inspection (DAI)</li>
+          <li>AAA — RADIUS vs TACACS+, authentication models</li>
+          <li>VPN types — site-to-site, remote access, IPSec overview</li>
+          <li>Common threats — DoS, MITM, spoofing, phishing</li>
+        </ul>
+      </div>
+      <div class="module-card">
+        <div class="module-header"><span class="module-num">DOMAIN 6 · 5%</span><span class="module-title">Automation &amp; Programmability</span></div>
+        <ul class="module-topics">
+          <li>Network automation benefits — intent-based networking</li>
+          <li>REST APIs — HTTP methods, JSON, status codes</li>
+          <li>Configuration management — Ansible, Puppet, Chef concepts</li>
+          <li>YANG data models — NETCONF, RESTCONF</li>
+          <li>Cisco DNA Center — SD-Access, policy, assurance</li>
+          <li>Traditional vs controller-based networking</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAB SESSIONS -->
+  <div class="content-block">
+    <div class="section-label">// nit lab sessions</div>
+    <h2>Hands-On Lab Schedule</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:0.5rem;">Every topic gets a lab. Configure, break, troubleshoot, and verify — on real IOS images in NIT Lab.</p>
+    <div class="labs-list">
+      <div class="lab-item"><span class="lab-item-icon">🔀</span><div class="lab-item-content"><strong>VLAN, Trunk &amp; STP Lab</strong><span>Build a 3-switch topology, configure VLANs, trunks, and observe STP port state transitions in real time</span></div><span class="lab-badge">Domain 2</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🌐</span><div class="lab-item-content"><strong>OSPFv2 Single-Area Lab</strong><span>4-router topology — configure OSPF, observe DR/BDR election, verify LSDB and routing table convergence</span></div><span class="lab-badge">Domain 3</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🔁</span><div class="lab-item-content"><strong>Inter-VLAN Routing (Router-on-a-Stick &amp; L3 Switch)</strong><span>Both methods side by side — subinterfaces vs SVIs, comparing packet flow</span></div><span class="lab-badge">Domain 2/3</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🛡️</span><div class="lab-item-content"><strong>ACL Lab — Standard &amp; Extended</strong><span>Filter traffic between subnets, verify with ping and Wireshark capture inside NIT Lab</span></div><span class="lab-badge">Domain 5</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🔒</span><div class="lab-item-content"><strong>NAT/PAT Lab</strong><span>Static NAT for a server, PAT for inside hosts — verify translations with debug ip nat</span></div><span class="lab-badge">Domain 4</span></div>
+      <div class="lab-item"><span class="lab-item-icon">📡</span><div class="lab-item-content"><strong>HSRP Redundancy Lab</strong><span>Dual-router HSRP — configure active/standby, simulate link failure, verify failover</span></div><span class="lab-badge">Domain 3</span></div>
+      <div class="lab-item"><span class="lab-item-icon">🤖</span><div class="lab-item-content"><strong>REST API Lab (Postman + IOS-XE)</strong><span>Query and configure a router using RESTCONF — JSON payloads, HTTP methods</span></div><span class="lab-badge">Domain 6</span></div>
+    </div>
+  </div>
+
+  <!-- EXAM INFO -->
+  <div class="content-block">
+    <div class="section-label">// exam details</div>
+    <h2>CCNA 200-301 Exam Blueprint</h2>
+    <div class="exam-card">
+      <div class="exam-detail">
+        <div class="exam-row"><label>Exam code</label><value>200-301 CCNA</value></div>
+        <div class="exam-row"><label>Duration</label><value>120 minutes</value></div>
+        <div class="exam-row"><label>Questions</label><value>95–100 questions</value></div>
+        <div class="exam-row"><label>Format</label><value>MCQ + drag-drop + sim</value></div>
+        <div class="exam-row"><label>Passing score</label><value>825 / 1000</value></div>
+        <div class="exam-row"><label>Validity</label><value>3 years</value></div>
+        <div class="exam-row"><label>Delivered by</label><value>Pearson VUE</value></div>
+        <div class="exam-row"><label>Cost</label><value>~€330 (NL)</value></div>
+      </div>
+      <div class="exam-topics">
+        <h4>Exam domain weights</h4>
+        <div class="exam-topic-bar">
+          <div class="topic-bar-item"><span class="topic-name">Network Fundamentals</span><div class="topic-bar-track"><div class="topic-bar-fill" style="width:20%"></div></div><span class="topic-pct">20%</span></div>
+          <div class="topic-bar-item"><span class="topic-name">Network Access</span><div class="topic-bar-track"><div class="topic-bar-fill" style="width:20%"></div></div><span class="topic-pct">20%</span></div>
+          <div class="topic-bar-item"><span class="topic-name">IP Connectivity</span><div class="topic-bar-track"><div class="topic-bar-fill" style="width:25%"></div></div><span class="topic-pct">25%</span></div>
+          <div class="topic-bar-item"><span class="topic-name">IP Services</span><div class="topic-bar-track"><div class="topic-bar-fill" style="width:15%"></div></div><span class="topic-pct">15%</span></div>
+          <div class="topic-bar-item"><span class="topic-name">Security Fundamentals</span><div class="topic-bar-track"><div class="topic-bar-fill" style="width:15%"></div></div><span class="topic-pct">15%</span></div>
+          <div class="topic-bar-item"><span class="topic-name">Automation</span><div class="topic-bar-track"><div class="topic-bar-fill" style="width:5%"></div></div><span class="topic-pct">5%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="ccnp.html">CCNP</a>
+    <a href="firewall.html">Firewall</a>
+    <a href="booking.html">Lab Rental</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p class="footer-copy">© 2025 Network Instructors · networkinstructors.com · Cisco NetAcad Authorized</p>
+</footer>
+
+</body>
+</html>

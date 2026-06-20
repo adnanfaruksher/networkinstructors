@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Network Instructors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--slate:#111827;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--cyan-dim:#0099BB;--amber:#FF8C00;--amber-dk:#CC7000;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none;color:var(--white);}
+    .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:18px;height:18px;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--amber);color:#0A0F1E!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600!important;}
+    @media(max-width:768px){.nav-links{display:none;}}
+
+    .page-wrap{max-width:1100px;margin:0 auto;padding:120px 5vw 100px;}
+    .page-eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.8rem;}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.8rem;}
+    .page-sub{color:var(--muted);font-size:1rem;max-width:500px;margin-bottom:3rem;}
+
+    .contact-grid{display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:start;}
+
+    /* FORM */
+    .contact-form{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2.5rem;}
+    .field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1.2rem;}
+    .field label{font-size:0.8rem;color:var(--muted);font-weight:500;}
+    .field input,.field select,.field textarea{background:var(--navy);border:1px solid var(--border);border-radius:8px;padding:0.75rem 1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:0.875rem;transition:border-color 0.2s;outline:none;width:100%;}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);}
+    .field select option{background:var(--navy);}
+    .field textarea{resize:vertical;min-height:120px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+    .submit-btn{background:var(--amber);color:#0A0F1E;padding:0.9rem 2rem;border:none;border-radius:8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:background 0.2s;width:100%;margin-top:0.5rem;}
+    .submit-btn:hover{background:var(--amber-dk);}
+
+    /* CONFIRM */
+    .form-confirm{display:none;text-align:center;padding:3rem 1rem;}
+    .form-confirm .icon{font-size:3rem;margin-bottom:1rem;}
+    .form-confirm h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}
+    .form-confirm p{color:var(--muted);font-size:0.9rem;}
+
+    /* INFO SIDE */
+    .info-section{display:flex;flex-direction:column;gap:2rem;}
+    .info-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.6rem;}
+    .info-card h3{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.95rem;margin-bottom:1rem;color:var(--white);}
+    .info-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:0.9rem;}
+    .info-row:last-child{margin-bottom:0;}
+    .info-icon{color:var(--cyan);flex-shrink:0;margin-top:2px;}
+    .info-row strong{display:block;font-size:0.875rem;color:var(--white);margin-bottom:0.15rem;}
+    .info-row span{font-size:0.82rem;color:var(--muted);}
+    .info-row a{color:var(--cyan);text-decoration:none;font-size:0.82rem;}
+    .info-row a:hover{text-decoration:underline;}
+
+    .topic-list{display:flex;flex-direction:column;gap:0.5rem;}
+    .topic-item{display:flex;align-items:center;gap:8px;font-size:0.84rem;color:var(--muted);padding:0.5rem;border-radius:6px;cursor:pointer;transition:background 0.2s;}
+    .topic-item:hover{background:rgba(0,212,255,0.05);}
+    .topic-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);flex-shrink:0;}
+
+    .response-badge{display:flex;align-items:center;gap:8px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:8px;padding:0.8rem 1rem;font-size:0.84rem;color:var(--green);}
+    .rd{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pg 2s ease-in-out infinite;}
+    @keyframes pg{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.6);}50%{box-shadow:0 0 0 5px rgba(0,255,136,0);}}
+
+    footer{padding:40px 5vw;border-top:1px solid var(--border);text-align:center;}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .footer-nav a{font-size:0.85rem;color:var(--muted);text-decoration:none;}
+    .footer-nav a:hover{color:var(--cyan);}
+    .footer-copy{font-size:0.8rem;color:var(--border);}
+
+    @media(max-width:900px){.contact-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+    Network<span style="color:var(--cyan)">.</span>Instructors
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#courses">Courses</a></li>
+    <li><a href="index.html#labs">NIT Labs</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="booking.html" class="nav-cta">Rent a Lab</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-eyebrow">// get in touch</div>
+  <h1>Contact Us</h1>
+  <p class="page-sub">Course questions, lab rental support, corporate training inquiries, or just want to talk networking — we're here.</p>
+
+  <div class="contact-grid">
+    <div>
+      <div class="contact-form" id="contact-form-wrap">
+        <div class="form-row">
+          <div class="field"><label>First name</label><input type="text" id="cf-fname" placeholder="Your name"/></div>
+          <div class="field"><label>Last name</label><input type="text" id="cf-lname" placeholder=""/></div>
+        </div>
+        <div class="field"><label>Email address</label><input type="email" id="cf-email" placeholder="you@example.com"/></div>
+        <div class="field">
+          <label>Topic</label>
+          <select id="cf-topic">
+            <option value="">Select a topic…</option>
+            <option value="ccna">CCNA course enquiry</option>
+            <option value="ccnp">CCNP course enquiry</option>
+            <option value="firewall">Firewall course enquiry</option>
+            <option value="lab">NIT Lab rental / booking</option>
+            <option value="corporate">Corporate / group training</option>
+            <option value="technical">Technical support</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="field"><label>Message</label><textarea id="cf-msg" placeholder="Tell us what you need — the more detail, the better we can help…"></textarea></div>
+        <button class="submit-btn" onclick="submitContact()">Send Message</button>
+      </div>
+
+      <div class="form-confirm" id="form-confirm">
+        <div class="icon">📬</div>
+        <h3>Message sent!</h3>
+        <p>We'll get back to you within 24 hours at the email you provided. For urgent lab access issues, email <a href="mailto:labs@networkinstructors.com" style="color:var(--cyan);">labs@networkinstructors.com</a> directly.</p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="info-card">
+        <h3>Contact Details</h3>
+        <div class="info-row">
+          <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div><strong>General Enquiries</strong><a href="mailto:info@networkinstructors.com">info@networkinstructors.com</a></div>
+        </div>
+        <div class="info-row">
+          <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <div><strong>NIT Lab Support</strong><a href="mailto:labs@networkinstructors.com">labs@networkinstructors.com</a></div>
+        </div>
+        <div class="info-row">
+          <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div><strong>Corporate Training</strong><a href="mailto:corporate@networkinstructors.com">corporate@networkinstructors.com</a></div>
+        </div>
+        <div class="info-row">
+          <svg class="info-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div><strong>Based in</strong><span>The Netherlands</span></div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h3>What to Ask Us About</h3>
+        <div class="topic-list">
+          <div class="topic-item"><span class="topic-dot"></span>Which course track fits my current level</div>
+          <div class="topic-item"><span class="topic-dot"></span>CCNA vs CCNP — where to start</div>
+          <div class="topic-item"><span class="topic-dot"></span>Corporate firewall training for a team</div>
+          <div class="topic-item"><span class="topic-dot"></span>Custom lab topology requests</div>
+          <div class="topic-item"><span class="topic-dot"></span>Fortinet FCP / NSE exam prep</div>
+          <div class="topic-item"><span class="topic-dot"></span>NIT Lab access issues</div>
+          <div class="topic-item"><span class="topic-dot"></span>Group booking and invoice billing</div>
+        </div>
+      </div>
+
+      <div class="response-badge">
+        <span class="rd"></span>
+        Typical response within 24 hours on business days
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="ccna.html">CCNA</a>
+    <a href="ccnp.html">CCNP</a>
+    <a href="firewall.html">Firewall</a>
+    <a href="booking.html">Lab Rental</a>
+    <a href="blog.html">Blog</a>
+  </div>
+  <p class="footer-copy">© 2025 Network Instructors · networkinstructors.com</p>
+</footer>
+
+<script>
+  function submitContact() {
+    const email = document.getElementById('cf-email').value.trim();
+    const fname = document.getElementById('cf-fname').value.trim();
+    const msg = document.getElementById('cf-msg').value.trim();
+    if (!email || !fname || !msg) { alert('Please fill in your name, email, and message.'); return; }
+    document.getElementById('contact-form-wrap').style.display = 'none';
+    document.getElementById('form-confirm').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book NIT Lab — Network Instructors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--navy:#0A0F1E;--slate:#111827;--card:#141C2E;--border:#1E2D4A;--cyan:#00D4FF;--cyan-dim:#0099BB;--amber:#FF8C00;--amber-dk:#CC7000;--white:#F0F4FF;--muted:#8A9BBE;--green:#00FF88;--red:#FF4466;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--navy);color:var(--white);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden;}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;background:rgba(10,15,30,0.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;text-decoration:none;color:var(--white);}
+    .logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--cyan) 0%,#0066AA 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+    .logo-icon svg{width:18px;height:18px;}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:500;transition:color 0.2s;}
+    .nav-links a:hover{color:var(--white);}
+    .nav-cta{background:var(--amber);color:#0A0F1E!important;padding:0.4rem 1rem;border-radius:6px;font-weight:600!important;}
+    @media(max-width:768px){.nav-links{display:none;}}
+
+    .page-header{padding:100px 5vw 40px;max-width:1200px;margin:0 auto;text-align:center;}
+    .page-eyebrow{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.8rem;}
+    h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:1rem;}
+    .page-sub{color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto;}
+
+    /* PLAN SELECTOR */
+    .plans-wrap{max-width:1100px;margin:3rem auto;padding:0 5vw;}
+    .plans-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:3rem;}
+    .plan-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1.6rem;cursor:pointer;transition:all 0.2s;position:relative;}
+    .plan-card:hover{border-color:rgba(0,212,255,0.3);}
+    .plan-card.selected{border-color:var(--cyan);background:rgba(0,212,255,0.04);}
+    .plan-card.featured-plan{border-color:rgba(0,212,255,0.25);}
+    .plan-radio{position:absolute;top:1rem;right:1rem;width:18px;height:18px;border-radius:50%;border:2px solid var(--border);background:transparent;transition:all 0.2s;}
+    .plan-card.selected .plan-radio{border-color:var(--cyan);background:var(--cyan);box-shadow:0 0 0 3px rgba(0,212,255,0.2);}
+    .plan-pop{position:absolute;top:-10px;left:1rem;font-family:'JetBrains Mono',monospace;font-size:0.63rem;background:var(--cyan);color:var(--navy);padding:0.2rem 0.5rem;border-radius:4px;font-weight:700;}
+    .plan-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.95rem;margin-bottom:0.3rem;}
+    .plan-price{font-family:'Space Grotesk',sans-serif;font-size:1.8rem;font-weight:700;margin:0.5rem 0 0.2rem;}
+    .plan-price span{font-size:0.85rem;color:var(--muted);font-weight:400;}
+    .plan-desc{font-size:0.8rem;color:var(--muted);margin-bottom:1rem;line-height:1.5;}
+    .plan-features{list-style:none;display:flex;flex-direction:column;gap:0.35rem;}
+    .plan-features li{font-size:0.78rem;color:var(--muted);padding-left:1.1rem;position:relative;}
+    .plan-features li::before{content:'✓';position:absolute;left:0;color:var(--green);font-size:0.72rem;}
+
+    /* CHECKOUT FORM */
+    .checkout-grid{display:grid;grid-template-columns:1fr 360px;gap:3rem;align-items:start;}
+    .form-section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;}
+    .form-section h2{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+    .form-row.full{grid-template-columns:1fr;}
+    .field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+    .field label{font-size:0.8rem;color:var(--muted);font-weight:500;}
+    .field input,.field select,.field textarea{background:var(--navy);border:1px solid var(--border);border-radius:8px;padding:0.7rem 0.9rem;color:var(--white);font-family:'Inter',sans-serif;font-size:0.875rem;transition:border-color 0.2s;outline:none;}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);}
+    .field select option{background:var(--navy);}
+    .field textarea{resize:vertical;min-height:80px;}
+    .form-section + .form-section{margin-top:1.5rem;}
+
+    /* TOPOLOGY PICKER */
+    .topo-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-top:0.5rem;}
+    .topo-option{border:1px solid var(--border);border-radius:8px;padding:0.8rem;cursor:pointer;transition:all 0.2s;}
+    .topo-option:hover{border-color:rgba(0,212,255,0.2);}
+    .topo-option.selected-topo{border-color:var(--cyan);background:rgba(0,212,255,0.04);}
+    .topo-option input[type=checkbox]{display:none;}
+    .topo-name{font-size:0.82rem;font-weight:600;margin-bottom:0.2rem;}
+    .topo-detail{font-size:0.73rem;color:var(--muted);}
+
+    /* ORDER SUMMARY */
+    .summary-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:2rem;position:sticky;top:88px;}
+    .summary-card h2{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+    .summary-line{display:flex;justify-content:space-between;font-size:0.875rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+    .summary-line:last-of-type{border-bottom:none;}
+    .summary-line.total{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:var(--white);margin-top:0.5rem;padding-top:1rem;border-top:1px solid var(--border);}
+    .summary-label{color:var(--muted);}
+    .summary-val{color:var(--white);}
+    #summary-plan{color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem;}
+    #summary-price{color:var(--cyan);}
+
+    .payment-logos{display:flex;gap:0.6rem;flex-wrap:wrap;margin:1rem 0;}
+    .pay-logo{background:var(--navy);border:1px solid var(--border);border-radius:6px;padding:0.35rem 0.7rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);}
+
+    .submit-btn{display:block;width:100%;background:var(--amber);color:#0A0F1E;padding:1rem;border:none;border-radius:8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:background 0.2s;text-align:center;margin-top:1.2rem;}
+    .submit-btn:hover{background:var(--amber-dk);}
+    .secure-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:0.75rem;color:var(--muted);margin-top:0.8rem;}
+
+    /* CONFIRMATION */
+    .confirm-screen{display:none;text-align:center;padding:80px 5vw;}
+    .confirm-icon{font-size:4rem;margin-bottom:1rem;}
+    .confirm-screen h2{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;margin-bottom:1rem;}
+    .confirm-screen p{color:var(--muted);max-width:480px;margin:0 auto 2rem;}
+    .confirm-detail{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;max-width:400px;margin:0 auto 2rem;text-align:left;}
+    .confirm-row{display:flex;justify-content:space-between;font-size:0.875rem;padding:0.5rem 0;border-bottom:1px solid var(--border);}
+    .confirm-row:last-child{border-bottom:none;}
+    .confirm-row label{color:var(--muted);}
+    .btn-back{display:inline-block;margin-top:1rem;padding:0.75rem 2rem;border-radius:8px;border:1px solid var(--border);color:var(--white);text-decoration:none;font-weight:600;font-size:0.9rem;}
+
+    footer{padding:40px 5vw;border-top:1px solid var(--border);text-align:center;margin-top:80px;}
+    .footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;}
+    .footer-nav a{font-size:0.85rem;color:var(--muted);text-decoration:none;}
+    .footer-nav a:hover{color:var(--cyan);}
+    .footer-copy{font-size:0.8rem;color:var(--border);}
+
+    @media(max-width:900px){.checkout-grid{grid-template-columns:1fr;}.summary-card{position:static;}.form-row{grid-template-columns:1fr;}.topo-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="16" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><line x1="8" y1="5" x2="16" y2="5"/><line x1="8" y1="19" x2="16" y2="19"/><line x1="5" y1="8" x2="5" y2="16"/><line x1="19" y1="8" x2="19" y2="16"/><line x1="12" y1="5" x2="12" y2="19"/></svg></div>
+    Network<span style="color:var(--cyan)">.</span>Instructors
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#courses">Courses</a></li>
+    <li><a href="index.html#labs">NIT Labs</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- BOOKING FORM -->
+<div id="booking-view">
+  <div class="page-header">
+    <div class="page-eyebrow">// nit lab rental</div>
+    <h1>Reserve Your Lab</h1>
+    <p class="page-sub">Choose a plan, pick your starting topology, and get access within minutes of confirmation.</p>
+  </div>
+
+  <!-- PLAN SELECTOR -->
+  <div class="plans-wrap">
+    <div class="plans-grid" id="plans-grid">
+      <div class="plan-card" data-plan="day" data-price="9" onclick="selectPlan(this)">
+        <div class="plan-radio"></div>
+        <div class="plan-name">Day Pass</div>
+        <div class="plan-price">€9<span>/day</span></div>
+        <p class="plan-desc">24 hours. Single topology, up to 5 nodes.</p>
+        <ul class="plan-features">
+          <li>1 active topology</li>
+          <li>Up to 5 nodes</li>
+          <li>Cisco IOS + FortiOS</li>
+          <li>Browser console access</li>
+        </ul>
+      </div>
+      <div class="plan-card featured-plan" data-plan="weekly" data-price="39" onclick="selectPlan(this)">
+        <div class="plan-pop">MOST POPULAR</div>
+        <div class="plan-radio"></div>
+        <div class="plan-name">Weekly Pass</div>
+        <div class="plan-price">€39<span>/week</span></div>
+        <p class="plan-desc">7 days persistent. 2 topologies, 12 nodes.</p>
+        <ul class="plan-features">
+          <li>2 concurrent topologies</li>
+          <li>Up to 12 nodes</li>
+          <li>Full multi-vendor library</li>
+          <li>Persistent state</li>
+          <li>Email support</li>
+        </ul>
+      </div>
+      <div class="plan-card" data-plan="monthly" data-price="99" onclick="selectPlan(this)">
+        <div class="plan-radio"></div>
+        <div class="plan-name">Monthly Pass</div>
+        <div class="plan-price">€99<span>/month</span></div>
+        <p class="plan-desc">30 days. 5 topologies, unlimited nodes.</p>
+        <ul class="plan-features">
+          <li>5 concurrent topologies</li>
+          <li>Unlimited nodes</li>
+          <li>Junos + all images</li>
+          <li>Snapshot &amp; rollback</li>
+          <li>Priority support</li>
+        </ul>
+      </div>
+      <div class="plan-card" data-plan="team" data-price="0" onclick="selectPlan(this)">
+        <div class="plan-radio"></div>
+        <div class="plan-name">Team / Corporate</div>
+        <div class="plan-price" style="font-size:1.3rem;margin:0.6rem 0 0.2rem;">Custom<span></span></div>
+        <p class="plan-desc">Isolated per-student environments for groups.</p>
+        <ul class="plan-features">
+          <li>Per-student isolation</li>
+          <li>Instructor view</li>
+          <li>Custom topologies</li>
+          <li>Invoiced billing</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CHECKOUT -->
+    <div class="checkout-grid">
+      <div>
+        <div class="form-section">
+          <h2>Your Details</h2>
+          <div class="form-row">
+            <div class="field"><label>First name</label><input type="text" id="fname" placeholder="Adnan"/></div>
+            <div class="field"><label>Last name</label><input type="text" id="lname" placeholder=""/></div>
+          </div>
+          <div class="field"><label>Email address</label><input type="email" id="email" placeholder="you@example.com"/></div>
+          <div class="field"><label>Organisation / Company (optional)</label><input type="text" placeholder=""/></div>
+          <div class="field">
+            <label>Country</label>
+            <select id="country">
+              <option value="NL">Netherlands</option>
+              <option value="BE">Belgium</option>
+              <option value="DE">Germany</option>
+              <option value="FR">France</option>
+              <option value="GB">United Kingdom</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Starting Topology (optional)</h2>
+          <p style="font-size:0.84rem;color:var(--muted);margin-bottom:1rem;">We'll pre-load your lab with these topologies. You can change them anytime inside NIT Lab.</p>
+          <div class="topo-grid">
+            <div class="topo-option" onclick="toggleTopo(this)">
+              <input type="checkbox"/>
+              <div class="topo-name">🌐 OSPF Multi-Area</div>
+              <div class="topo-detail">4 Cisco IOS routers — backbone + stub + NSSA</div>
+            </div>
+            <div class="topo-option" onclick="toggleTopo(this)">
+              <input type="checkbox"/>
+              <div class="topo-name">🔥 FortiGate + Router</div>
+              <div class="topo-detail">FortiGate 7.x + IOS router — policy + VPN ready</div>
+            </div>
+            <div class="topo-option" onclick="toggleTopo(this)">
+              <input type="checkbox"/>
+              <div class="topo-name">🔀 Switching Lab</div>
+              <div class="topo-detail">3 L2/L3 switches — VLANs, STP, EtherChannel</div>
+            </div>
+            <div class="topo-option" onclick="toggleTopo(this)">
+              <input type="checkbox"/>
+              <div class="topo-name">🏗️ BGP Full-Mesh</div>
+              <div class="topo-detail">4 AS topology — eBGP + iBGP + route reflector</div>
+            </div>
+            <div class="topo-option" onclick="toggleTopo(this)">
+              <input type="checkbox"/>
+              <div class="topo-name">🔵 Cisco ASA Lab</div>
+              <div class="topo-detail">ASA 9.x — Inside/DMZ/Outside + AnyConnect</div>
+            </div>
+            <div class="topo-option" onclick="toggleTopo(this)">
+              <input type="checkbox"/>
+              <div class="topo-name">🟢 Palo Alto Lab</div>
+              <div class="topo-detail">PAN-OS — zones, App-ID, GlobalProtect VPN</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h2>Additional Notes</h2>
+          <div class="field full">
+            <label>Anything specific you want pre-configured, or course context</label>
+            <textarea placeholder="e.g. I'm studying for CCNP ENARSI and need BGP + MPLS topologies..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="summary-card">
+        <h2>Order Summary</h2>
+        <div class="summary-line"><span class="summary-label">Plan</span><span id="summary-plan">— select above —</span></div>
+        <div class="summary-line"><span class="summary-label">NIT Lab access</span><span class="summary-val">Included</span></div>
+        <div class="summary-line"><span class="summary-label">Setup fee</span><span class="summary-val">€0</span></div>
+        <div class="summary-line"><span class="summary-label">VAT (21%)</span><span class="summary-val" id="summary-vat">—</span></div>
+        <div class="summary-line total"><span>Total</span><span id="summary-price">—</span></div>
+
+        <div class="payment-logos">
+          <span class="pay-logo">iDEAL</span>
+          <span class="pay-logo">Visa</span>
+          <span class="pay-logo">Mastercard</span>
+          <span class="pay-logo">PayPal</span>
+          <span class="pay-logo">SEPA</span>
+        </div>
+
+        <button class="submit-btn" onclick="submitBooking()">Reserve &amp; Pay</button>
+        <div class="secure-note">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Secure checkout · lab access within 15 minutes
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--border);margin:1.2rem 0;"/>
+        <p style="font-size:0.78rem;color:var(--muted);text-align:center;line-height:1.6;">Questions? <a href="contact.html" style="color:var(--cyan);">Contact us</a> or email <a href="mailto:labs@networkinstructors.com" style="color:var(--cyan);">labs@networkinstructors.com</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMATION SCREEN -->
+<div class="confirm-screen" id="confirm-view">
+  <div class="confirm-icon">✅</div>
+  <h2>Lab Reserved!</h2>
+  <p>Your NIT Lab environment is being provisioned. You'll receive login credentials at your email address within 15 minutes.</p>
+  <div class="confirm-detail">
+    <div class="confirm-row"><label>Plan</label><span id="conf-plan" style="color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:0.82rem;">—</span></div>
+    <div class="confirm-row"><label>Email</label><span id="conf-email" style="color:var(--white);">—</span></div>
+    <div class="confirm-row"><label>Access</label><span style="color:var(--green);">Within 15 minutes</span></div>
+    <div class="confirm-row"><label>Support</label><span style="color:var(--white);">labs@networkinstructors.com</span></div>
+  </div>
+  <a href="index.html" class="btn-back">← Back to home</a>
+</div>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="ccna.html">CCNA</a>
+    <a href="ccnp.html">CCNP</a>
+    <a href="firewall.html">Firewall</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <p class="footer-copy">© 2025 Network Instructors · networkinstructors.com</p>
+</footer>
+
+<script>
+  let selectedPlan = null;
+  let selectedPrice = 0;
+
+  // Pre-select from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const preselect = urlParams.get('plan');
+
+  window.addEventListener('DOMContentLoaded', () => {
+    if (preselect) {
+      const card = document.querySelector(`.plan-card[data-plan="${preselect}"]`);
+      if (card) selectPlan(card);
+    }
+  });
+
+  function selectPlan(card) {
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedPlan = card.dataset.plan;
+    selectedPrice = parseFloat(card.dataset.price);
+
+    const planNames = { day: 'Day Pass', weekly: 'Weekly Pass', monthly: 'Monthly Pass', team: 'Team/Corporate' };
+    document.getElementById('summary-plan').textContent = planNames[selectedPlan] || selectedPlan;
+
+    if (selectedPrice > 0) {
+      const vat = (selectedPrice * 0.21).toFixed(2);
+      const total = (selectedPrice * 1.21).toFixed(2);
+      document.getElementById('summary-vat').textContent = '€' + vat;
+      document.getElementById('summary-price').textContent = '€' + total;
+    } else {
+      document.getElementById('summary-vat').textContent = 'Quote';
+      document.getElementById('summary-price').textContent = 'Quote';
+    }
+  }
+
+  function toggleTopo(el) {
+    el.classList.toggle('selected-topo');
+  }
+
+  function submitBooking() {
+    const email = document.getElementById('email').value.trim();
+    const fname = document.getElementById('fname').value.trim();
+    if (!selectedPlan) { alert('Please select a lab plan first.'); return; }
+    if (!email) { alert('Please enter your email address.'); return; }
+    if (!fname) { alert('Please enter your first name.'); return; }
+
+    const planNames = { day: 'Day Pass — €9', weekly: 'Weekly Pass — €39', monthly: 'Monthly Pass — €99', team: 'Team/Corporate — Custom' };
+    document.getElementById('conf-plan').textContent = planNames[selectedPlan];
+    document.getElementById('conf-email').textContent = email;
+
+    document.getElementById('booking-view').style.display = 'none';
+    document.getElementById('confirm-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
