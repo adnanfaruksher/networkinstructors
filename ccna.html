@@ -66,6 +66,21 @@
     .enroll-divider{border:none;border-top:1px solid var(--border);margin:1.2rem 0;}
     .enroll-meta{font-size:0.78rem;color:var(--muted);text-align:center;}
 
+    /* PACKAGES */
+    .pkg-heading{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:0.25rem;}
+    .pkg-sub{font-size:0.82rem;color:var(--muted);line-height:1.55;margin-bottom:1.4rem;}
+    .pkg{position:relative;background:var(--slate);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.3rem;margin-bottom:1rem;transition:border-color 0.2s,transform 0.15s;}
+    .pkg:hover{border-color:rgba(0,212,255,0.35);transform:translateY(-2px);}
+    .pkg.featured{border-color:var(--amber);background:rgba(255,140,0,0.06);}
+    .pkg-badge{position:absolute;top:-10px;right:14px;background:var(--amber);color:#0A0F1E;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:0.06em;padding:0.18rem 0.5rem;border-radius:5px;}
+    .pkg-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1rem;color:var(--white);margin-bottom:0.25rem;}
+    .pkg-hours{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--cyan);margin-bottom:0.55rem;}
+    .pkg-price{font-family:'Space Grotesk',sans-serif;font-size:1.9rem;font-weight:700;color:var(--white);margin-bottom:1rem;}
+    .pkg-btn{display:block;text-align:center;padding:0.65rem;border-radius:8px;border:1px solid var(--border);color:var(--white);font-size:0.85rem;font-weight:600;text-decoration:none;transition:border-color 0.2s,color 0.2s,background 0.2s;}
+    .pkg-btn:hover{border-color:var(--cyan);color:var(--cyan);}
+    .pkg-btn.primary{background:var(--amber);color:#0A0F1E;border-color:var(--amber);}
+    .pkg-btn.primary:hover{background:var(--amber-dk);border-color:var(--amber-dk);color:#0A0F1E;}
+
     /* CONTENT SECTIONS */
     .content-wrap{max-width:1200px;margin:0 auto;padding:0 5vw 100px;}
     .section-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--cyan);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.6rem;}
@@ -150,7 +165,7 @@
     <h1>Cisco <span class="accent">CCNA</span><br>200-301</h1>
     <p class="hero-desc">The complete Cisco CCNA curriculum — fully aligned with the official 200-301 exam blueprint. Network fundamentals through automation, built around hands-on NIT Lab sessions covering every topic before you sit the exam.</p>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-val">160h</span><span class="stat-label">Total course hours</span></div>
+      <div class="stat"><span class="stat-val">40–80h</span><span class="stat-label">Course hours by package</span></div>
       <div class="stat"><span class="stat-val">30+</span><span class="stat-label">NIT Lab sessions</span></div>
       <div class="stat"><span class="stat-val">6</span><span class="stat-label">Exam domains</span></div>
       <div class="stat"><span class="stat-val">825</span><span class="stat-label">Pass score / 1000</span></div>
@@ -158,23 +173,36 @@
     <div class="hero-tags">
       <span class="tag">CCNA 200-301</span><span class="tag">Cisco NetAcad</span><span class="tag">VLANs</span><span class="tag">OSPF</span><span class="tag">STP/RSTP</span><span class="tag">IPv6</span><span class="tag">ACLs</span><span class="tag">NAT</span><span class="tag">Wireless</span><span class="tag">Automation</span>
     </div>
-    <a href="booking.html" class="btn-primary">Enroll Now</a>
-    <a href="booking.html?plan=weekly" class="btn-secondary">Try NIT Lab First</a>
+    <a href="mailto:info@networkinstructors.com?subject=Course%2FLab%20Enquiry%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20enrolling.%20%0D%0A%0D%0AMy%20name%3A%20%0D%0AMy%20email%3A%20%0D%0AMy%20question%3A%20" class="btn-primary">Enroll Now</a>
+    <a href="mailto:info@networkinstructors.com?subject=Course%2FLab%20Enquiry%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20enrolling.%20%0D%0A%0D%0AMy%20name%3A%20%0D%0AMy%20email%3A%20%0D%0AMy%20question%3A%20" class="btn-secondary">Try NIT Lab First</a>
   </div>
 
   <div class="enroll-card">
-    <div class="enroll-price">€349<span> / full course</span></div>
-    <p class="enroll-desc">One-time payment. Lifetime access to course recordings, materials, and NetAcad resources.</p>
-    <ul class="enroll-features">
-      <li>160 hours of instruction</li>
-      <li>30+ guided NIT Lab sessions</li>
-      <li>Cisco NetAcad portal access</li>
-      <li>Official Cisco NetAcad certificate</li>
-      <li>Practice exam bank (500+ Qs)</li>
-      <li>Instructor Q&amp;A sessions</li>
-      <li>Study group access</li>
-    </ul>
-    <a href="booking.html" class="enroll-btn">Enroll Now</a>
+    <div class="pkg-heading">CCNA Course Packages</div>
+    <p class="pkg-sub">Choose the package that fits your goals. One-time payment, lifetime access to recordings &amp; NetAcad resources.</p>
+
+    <div class="pkg">
+      <div class="pkg-name">Basic</div>
+      <div class="pkg-hours">40 hours</div>
+      <div class="pkg-price">€1,200</div>
+      <a href="mailto:info@networkinstructors.com?subject=Course%2FLab%20Enquiry%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20enrolling.%20%0D%0A%0D%0AMy%20name%3A%20%0D%0AMy%20email%3A%20%0D%0AMy%20question%3A%20" class="pkg-btn">Enroll — Basic</a>
+    </div>
+
+    <div class="pkg featured">
+      <span class="pkg-badge">MOST POPULAR</span>
+      <div class="pkg-name">Standard</div>
+      <div class="pkg-hours">60 hours</div>
+      <div class="pkg-price">€1,699</div>
+      <a href="mailto:info@networkinstructors.com?subject=Course%2FLab%20Enquiry%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20enrolling.%20%0D%0A%0D%0AMy%20name%3A%20%0D%0AMy%20email%3A%20%0D%0AMy%20question%3A%20" class="pkg-btn primary">Enroll — Standard</a>
+    </div>
+
+    <div class="pkg">
+      <div class="pkg-name">Full + Lab Practice</div>
+      <div class="pkg-hours">80 hours</div>
+      <div class="pkg-price">€2,199</div>
+      <a href="mailto:info@networkinstructors.com?subject=Course%2FLab%20Enquiry%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20enrolling.%20%0D%0A%0D%0AMy%20name%3A%20%0D%0AMy%20email%3A%20%0D%0AMy%20question%3A%20" class="pkg-btn">Enroll — Full</a>
+    </div>
+
     <a href="booking.html?plan=weekly" class="enroll-lab">⚡ Rent NIT Lab only — from €39/week</a>
     <hr class="enroll-divider"/>
     <p class="enroll-meta">Cisco NetAcad authorized · Certificate upon completion</p>
