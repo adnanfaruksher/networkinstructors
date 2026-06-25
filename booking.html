@@ -316,27 +316,15 @@
   }
 
   function submitBooking() {
-    const email = document.getElementById('email').value.trim();
     const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
     if (!selectedPlan) { alert('Please select a lab plan first.'); return; }
-    if (!email) { alert('Please enter your email address.'); return; }
-    if (!fname) { alert('Please enter your first name.'); return; }
-
-    const planNames = { day: 'Day Pass', weekly: 'Weekly Pass', monthly: 'Monthly Pass', team: 'Team / Corporate' };
-    const planPrices = { day: '€9/day', weekly: '€39/week', monthly: '€99/month', team: 'Custom' };
-    const planName = planNames[selectedPlan] || selectedPlan;
-    const planPrice = planPrices[selectedPlan] || (selectedPrice > 0 ? '€' + selectedPrice : 'Custom');
-
-    const subject = 'NIT Lab Reservation — ' + planName;
-    const body = 'Dear NIT Lab team,\n\n'
-      + 'I want to reserve the lab for: \n\n'
-      + 'Name: ' + fname + '\n'
-      + 'Email: ' + email + '\n'
-      + 'Phone: \n\n'
-      + 'Selected plan: ' + planName + ' — ' + planPrice;
-
-    window.location.href = 'mailto:reserv@networkinstructors.com?subject='
-      + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    if (!fname) { alert('Please enter your name.'); return; }
+    if (!email) { alert('Please enter your email.'); return; }
+    const planNames = { day: 'Day Pass — €9', weekly: 'Weekly Pass — €39', monthly: 'Monthly Pass — €99', team: 'Team/Corporate — Custom' };
+    const subject = encodeURIComponent('NIT Lab Reservation — ' + (planNames[selectedPlan] || selectedPlan));
+    const body = encodeURIComponent('Dear NIT Lab team,\n\nI want to reserve the lab for: \n\nName: ' + fname + '\nEmail: ' + email + '\nPhone: \n\nSelected plan: ' + (planNames[selectedPlan] || selectedPlan));
+    window.location.href = 'mailto:reserv@networkinstructors.com?subject=' + subject + '&body=' + body;
   }
 </script>
 
