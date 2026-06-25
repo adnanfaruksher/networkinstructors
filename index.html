@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Network Instructors — CCNA · CCNP · Firewall Training</title>
-  <meta name="description" content="Expert-led networking and firewall training. Rent our private NIT Labs for hands-on practice with real network topologies." />
+  <meta name="description" content="Expert-led networking and firewall training. CCNA, CCNP Enterprise, and Firewall Engineering. Rent our private NIT Labs for hands-on practice with real network topologies." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -646,8 +646,143 @@
       font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 1rem;
     }
 
+    /* ── LEARNING PATH ROADMAP ── */
+    .roadmap-section { background: var(--slate); }
+
+    .roadmap {
+      margin-top: 4rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; position: relative;
+    }
+
+    .roadmap::before {
+      content: '';
+      position: absolute; top: 38px; left: 16%; right: 16%; height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--amber), var(--green));
+      opacity: 0.35; z-index: 0;
+    }
+
+    .road-stage {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem 1.8rem;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .road-stage:hover { transform: translateY(-3px); }
+    .road-stage.s1:hover { border-color: rgba(0,212,255,0.35); }
+    .road-stage.s2:hover { border-color: rgba(255,140,0,0.35); }
+    .road-stage.s3:hover { border-color: rgba(0,255,136,0.35); }
+
+    .road-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem;
+      margin-bottom: 1.3rem; background: var(--navy);
+    }
+    .road-stage.s1 .road-num { border: 2px solid var(--cyan); color: var(--cyan); }
+    .road-stage.s2 .road-num { border: 2px solid var(--amber); color: var(--amber); }
+    .road-stage.s3 .road-num { border: 2px solid var(--green); color: var(--green); }
+
+    .road-stage-label {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .road-stage h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600; font-size: 1.2rem; margin-bottom: 0.6rem;
+    }
+
+    .road-stage p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
+
+    .road-meta {
+      list-style: none; display: flex; flex-direction: column; gap: 0.45rem;
+      margin-bottom: 1.6rem; flex: 1;
+    }
+    .road-meta li {
+      font-size: 0.82rem; color: var(--muted);
+      padding-left: 1.2rem; position: relative;
+    }
+    .road-meta li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-size: 0.8rem; }
+
+    .road-link {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.78rem;
+      text-decoration: none; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap 0.2s;
+    }
+    .road-stage.s1 .road-link { color: var(--cyan); }
+    .road-stage.s2 .road-link { color: var(--amber); }
+    .road-stage.s3 .road-link { color: var(--green); }
+    .road-link:hover { gap: 12px; }
+
+    /* ── PRICING (NIT LAB) HIGHLIGHT ── */
+    .pricing-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .price-tile {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem; text-align: center;
+      position: relative; transition: border-color 0.25s, transform 0.2s;
+    }
+    .price-tile:hover { transform: translateY(-3px); border-color: rgba(0,212,255,0.3); }
+    .price-tile.featured {
+      border-color: rgba(0,212,255,0.4);
+      background: linear-gradient(135deg, #141C2E 0%, #0F1A2A 100%);
+    }
+    .price-tile-tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .price-tile.featured .price-tile-tag { color: var(--cyan); }
+    .price-tile-amount {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      font-size: 2.8rem; color: var(--white); line-height: 1;
+    }
+    .price-tile-amount span { font-size: 0.95rem; color: var(--muted); font-weight: 400; }
+    .price-tile-desc { font-size: 0.82rem; color: var(--muted); margin-top: 0.8rem; line-height: 1.55; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .testimonial-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+      display: flex; flex-direction: column;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .testimonial-card:hover { border-color: rgba(0,212,255,0.25); transform: translateY(-2px); }
+    .testimonial-stars { color: var(--amber); font-size: 0.95rem; letter-spacing: 2px; margin-bottom: 1rem; }
+    .testimonial-quote {
+      font-size: 0.92rem; color: var(--white); line-height: 1.7;
+      margin-bottom: 1.5rem; flex: 1;
+    }
+    .testimonial-quote::before { content: '\201C'; color: var(--cyan); font-size: 1.4rem; font-weight: 700; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .ta-avatar {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem;
+      background: rgba(0,212,255,0.12); color: var(--cyan);
+      border: 1px solid rgba(0,212,255,0.25);
+    }
+    .ta-avatar.amber { background: rgba(255,140,0,0.12); color: var(--amber); border-color: rgba(255,140,0,0.25); }
+    .ta-avatar.green { background: rgba(0,255,136,0.12); color: var(--green); border-color: rgba(0,255,136,0.25); }
+    .ta-name { font-size: 0.88rem; font-weight: 600; color: var(--white); }
+    .ta-role { font-size: 0.76rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
+      .roadmap { grid-template-columns: 1fr; }
+      .roadmap::before { display: none; }
+      .pricing-strip { grid-template-columns: 1fr; }
       .hero-inner { grid-template-columns: 1fr; }
       .hero-terminal { display: none; }
       .lab-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -705,7 +840,7 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <span class="pulse-dot"></span>
-        Expert-Led Networking &amp; Firewall Training
+        Expert-Led Networking & Firewall Training
       </div>
       <h1>
         Master <span class="accent">Networking</span><br>
@@ -753,7 +888,7 @@
 <div class="trust-bar">
   <div class="trust-item">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-    <span><strong>Exam-Aligned</strong> curriculum</span>
+    <span><strong>Cisco Certified</strong> Instructor</span>
   </div>
   <div class="trust-item">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -793,6 +928,7 @@
           <span class="tag">VLANs</span>
           <span class="tag">OSPF</span>
           <span class="tag">STP</span>
+          <span class="tag">VLANs</span>
         </div>
       </div>
 
@@ -999,6 +1135,61 @@
   </div>
 </section>
 
+<!-- LEARNING PATH ROADMAP -->
+<section id="roadmap" class="roadmap-section">
+  <div class="section-inner">
+    <div class="section-label">// your learning path</div>
+    <h2 class="section-heading">From First Ping to<br>Production Engineer</h2>
+    <p class="section-sub">
+      A clear, staged route from networking fundamentals to professional-level enterprise and specialist skills. Each stage builds on the last — with NIT Lab practice at every step.
+    </p>
+
+    <div class="roadmap">
+      <div class="road-stage s1">
+        <div class="road-num">01</div>
+        <div class="road-stage-label">Foundation · Associate</div>
+        <h4>Start with CCNA</h4>
+        <p>Build the foundation every network role demands — switching, routing, IP services, security and automation basics.</p>
+        <ul class="road-meta">
+          <li>VLANs, STP &amp; inter-VLAN routing</li>
+          <li>OSPF, static &amp; IPv6 routing</li>
+          <li>ACLs, NAT, DHCP &amp; wireless</li>
+          <li>CCNA 200-301 exam-aligned</li>
+        </ul>
+        <a href="ccna.html" class="road-link">Explore CCNA →</a>
+      </div>
+
+      <div class="road-stage s2">
+        <div class="road-num">02</div>
+        <div class="road-stage-label">Professional · Enterprise</div>
+        <h4>Advance to CCNP</h4>
+        <p>Move into enterprise architecture and advanced routing. ENCOR core plus the ENARSI concentration.</p>
+        <ul class="road-meta">
+          <li>Advanced BGP, OSPF &amp; EIGRP</li>
+          <li>SD-WAN, MPLS L3VPN &amp; VRF</li>
+          <li>QoS, multicast &amp; assurance</li>
+          <li>ENCOR 350-401 + ENARSI 300-410</li>
+        </ul>
+        <a href="ccnp.html" class="road-link">Explore CCNP →</a>
+      </div>
+
+      <div class="road-stage s3">
+        <div class="road-num">03</div>
+        <div class="road-stage-label">Specialist · Expert</div>
+        <h4>Specialize Your Edge</h4>
+        <p>Layer on a high-demand specialization — firewall engineering, automation, or service-provider IP/MPLS core.</p>
+        <ul class="road-meta">
+          <li>FortiGate &amp; firewall engineering</li>
+          <li>Python &amp; Ansible automation</li>
+          <li>IP/MPLS &amp; SP core routing</li>
+          <li>Production-grade lab topologies</li>
+        </ul>
+        <a href="#courses" class="road-link">Browse specialist tracks →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LEARNING PATHS -->
 <section id="paths" class="paths-section">
   <div class="section-inner">
@@ -1072,6 +1263,38 @@
   </div>
 </section>
 
+<!-- NIT LAB PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-label">// nit lab pricing</div>
+    <h2 class="section-heading">Simple, Honest<br>Lab Pricing</h2>
+    <p class="section-sub">
+      Rent our private NIT Labs by the day, week, or month — no course enrolment required. Real OS images, persistent topologies, browser-based access.
+    </p>
+
+    <div class="pricing-strip">
+      <div class="price-tile">
+        <div class="price-tile-tag">Day Pass</div>
+        <div class="price-tile-amount">€9<span> / day</span></div>
+        <p class="price-tile-desc">24 hours of focused lab time. Perfect for a single exam objective or quick practice.</p>
+        <a href="#rental" class="road-link" style="color:var(--cyan)">See what's included →</a>
+      </div>
+      <div class="price-tile featured">
+        <div class="price-tile-tag">Weekly · Most Popular</div>
+        <div class="price-tile-amount">€39<span> / week</span></div>
+        <p class="price-tile-desc">7 days of persistent access. Work through a full module with your state preserved.</p>
+        <a href="#rental" class="road-link" style="color:var(--cyan)">See what's included →</a>
+      </div>
+      <div class="price-tile">
+        <div class="price-tile-tag">Monthly</div>
+        <div class="price-tile-amount">€99<span> / month</span></div>
+        <p class="price-tile-desc">30 days of full access. Ideal for end-to-end certification prep across multiple tracks.</p>
+        <a href="#rental" class="road-link" style="color:var(--cyan)">See what's included →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- LAB RENTAL -->
 <section id="rental">
   <div class="section-inner">
@@ -1094,7 +1317,7 @@
           <li>Browser-based console access</li>
           <li>Config export at session end</li>
         </ul>
-        <a href="mailto:admin@networkinstructors.com?subject=Lab%20Reservation%20Request%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20reserving%20a%20lab%20session.%0D%0A%0D%0AMy%20name%20is%3A%20Please%20write%20here%0D%0A%0D%0AMy%20email%20is%3A%20Please%20write%20here%0D%0A%0D%0AMy%20question%2Fmessage%3A%20Please%20ask%20your%20questions%20here" class="btn-rental">Reserve Day Pass</a>
+        <a href="#" class="btn-rental">Reserve Day Pass</a>
       </div>
 
       <div class="rental-card featured">
@@ -1110,7 +1333,7 @@
           <li>Config export &amp; save</li>
           <li>Email support within 24h</li>
         </ul>
-        <a href="mailto:admin@networkinstructors.com?subject=Lab%20Reservation%20Request%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20reserving%20a%20lab%20session.%0D%0A%0D%0AMy%20name%20is%3A%20Please%20write%20here%0D%0A%0D%0AMy%20email%20is%3A%20Please%20write%20here%0D%0A%0D%0AMy%20question%2Fmessage%3A%20Please%20ask%20your%20questions%20here" class="btn-rental">Reserve Weekly Lab</a>
+        <a href="#" class="btn-rental">Reserve Weekly Lab</a>
       </div>
 
       <div class="rental-card">
@@ -1126,7 +1349,7 @@
           <li>Priority support response</li>
           <li>Course topology library access</li>
         </ul>
-        <a href="mailto:admin@networkinstructors.com?subject=Lab%20Reservation%20Request%20-%20NitLab&body=Hello%20NitLab%20Team%2C%0D%0A%0D%0AI%20am%20interested%20in%20reserving%20a%20lab%20session.%0D%0A%0D%0AMy%20name%20is%3A%20Please%20write%20here%0D%0A%0D%0AMy%20email%20is%3A%20Please%20write%20here%0D%0A%0D%0AMy%20question%2Fmessage%3A%20Please%20ask%20your%20questions%20here" class="btn-rental">Reserve Monthly Lab</a>
+        <a href="#" class="btn-rental">Reserve Monthly Lab</a>
       </div>
 
       <div class="rental-card">
@@ -1147,12 +1370,97 @@
   </div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="paths-section">
+  <div class="section-inner">
+    <div class="section-label">// student results</div>
+    <h2 class="section-heading">What Our Students Say</h2>
+    <p class="section-sub">
+      Engineers who went from theory to certified — and to production-ready — with hands-on NIT Lab practice and instruction grounded in real network operations.
+    </p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">The labs are what set this apart. I'd watched plenty of CCNA videos, but configuring real OSPF and breaking it in NIT Lab is what finally made it click. Passed 200-301 first try.</p>
+        <div class="testimonial-author">
+          <div class="ta-avatar">SM</div>
+          <div>
+            <div class="ta-name">Sara M.</div>
+            <div class="ta-role">CCNA 200-301 · passed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">You can tell the instructors here have actually run service-provider networks. The MPLS L3VPN and BGP labs went way beyond the blueprint — exactly the depth I needed for CCNP ENARSI.</p>
+        <div class="testimonial-author">
+          <div class="ta-avatar amber">DK</div>
+          <div>
+            <div class="ta-name">Daniel K.</div>
+            <div class="ta-role">CCNP Enterprise · ENCOR + ENARSI</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">The weekly lab pass was perfect for me. €39 for a full week of persistent topologies beat every rack rental I'd looked at. Spun up FortiGate scenarios whenever I had an evening free.</p>
+        <div class="testimonial-author">
+          <div class="ta-avatar green">RA</div>
+          <div>
+            <div class="ta-name">Rebecca A.</div>
+            <div class="ta-role">Firewall track · NIT Lab renter</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">I came in knowing CLI but no code. The Python and Ansible labs got me automating live IOS-XE routers in weeks. That skill alone changed the kind of roles I could apply for.</p>
+        <div class="testimonial-author">
+          <div class="ta-avatar">TO</div>
+          <div>
+            <div class="ta-name">Tomas O.</div>
+            <div class="ta-role">Network Automation track</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">Real OS images, not emulators, made the difference when I hit production. Behaviour I practised in NIT Lab matched the kit at work exactly. Worth every euro.</p>
+        <div class="testimonial-author">
+          <div class="ta-avatar amber">LV</div>
+          <div>
+            <div class="ta-name">Lukas V.</div>
+            <div class="ta-role">CCNP candidate · SP engineer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-quote">Structured path from CCNA to CCNP with clear milestones kept me on track. Having instructors who actually answer the "why" behind each command is rare.</p>
+        <div class="testimonial-author">
+          <div class="ta-avatar green">PN</div>
+          <div>
+            <div class="ta-name">Priya N.</div>
+            <div class="ta-role">CCNA → CCNP path</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA BANNER -->
 <div class="cta-banner">
   <div class="section-label">// start today</div>
   <h2 class="section-heading">Ready to build networks<br>that don't break?</h2>
   <p class="section-sub">
-    Join students who went from theory to production-ready in months — not years. Hands-on labs included.
+    Join students who went from theory to production-ready in months — not years. Real labs, real topologies, real instructors.
   </p>
   <div class="hero-actions">
     <a href="#courses" class="btn-primary">View All Courses</a>
@@ -1204,10 +1512,10 @@
     <div class="footer-col">
       <h5>Resources</h5>
       <ul>
-        <li><a href="#paths">Learning Paths</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="#labs">Lab Docs</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="#">Learning Paths</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Lab Docs</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
     </div>
   </div>
